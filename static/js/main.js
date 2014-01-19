@@ -11,6 +11,10 @@ var brand = ["Agfa", "Canon", "Casio", "Epson", "Fujifilm", "HP",
 var data = [];
 var max_value = {};
 var min_value = {};
+
+//current display function
+var diagram_f = show_table;
+
 function parse_data(){
     d3.csv("camera.csv", function(d){
 	//callback, store data in var
@@ -45,7 +49,7 @@ function parse_data(){
 	    });
 	}
 //	load_data(data, properties);
-//	show_table(data, properties);
+	show_table(data, properties);
 	load_filter();
     });
 }
@@ -83,21 +87,82 @@ function load_data(data, columns){
 }
 
 function load_filter(){
-    d3.select("#brand").selectAll("option")
+    d3.select("#model").selectAll("option")
     .data(brand)
     .enter()
     .append("option")
     .text(function(d) {return d;})
     .attr("value", function(d){ return d;});
 
-    $("#date-slider").noUiSlider({
-	range:[min_value["date"], max_value["date"]],
-	start:[min_value["date"], max_value["date"]],
-	serialization: {
-	    resolution: 1
-	    ,to: [$("#date-min"), $("#date-max")]
+    for(var i = 0; i < number_properties.length; i++){
+	var p = number_properties[i];
+	$("#"+p+"-slider").noUiSlider({
+	    range: [min_value[p], max_value[p]],
+	    start: [min_value[p], max_value[p]],
+	    serialization: {
+		resolution: 1,
+		to: [$("#"+p+"-min"), $("#"+p+"-max") ]
+	    }
+	});
+
+	$("#"+p).attr("checked", true).checkboxradio("refresh");
+
+	$("#"+p).click(function(){
+	    if(this.checked){
+		$("#"+this.id+"-panel").show("fast");
+	    }else{
+		$("#"+this.id+"-panel").hide("fast");
+	    }
+	});
+    }
+}
+
+function create_filter(){
+    var values = {};
+    values["model"] = $("#model").val();
+    for(var i = 0; i < number_properties.length; i++){
+	var p = number_properties[i];
+	if($("#"+p).prop("checked")){
+	    values[p] = $("#"+p+"-slider").val();
 	}
+    };
+    console.log(values);
+    return values;
+}
+
+function filter_data(data, filter){
+    var result = data.filter(function(d){
+	var re = true;
+	for(var p in filter){
+	    var value = filter[p];
+	    if(p == "model"){
+		if(d[p].indexOf(value) == -1){
+		    re = false;
+		    break;
+		}
+	    }
+	    else{
+		if(d[p] < value[0] || d[p] > value[1]){
+		    re = false;
+		    break;
+		}
+	    }
+	}
+	return re;
     });
+    return result;
+}
+
+function filter_show(){
+    var filter = create_filter();
+    var subdata = filter_data(data, filter);
+    var columns = Object.keys(filter);
+
+    d3.selectAll("#diagram").remove();
+    d3.select("#container")
+	.append("div")
+	.attr("id", "diagram");
+    diagram_f(subdata, columns);
 }
 $(function(){
     parse_data();

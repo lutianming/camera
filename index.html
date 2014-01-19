@@ -5,6 +5,7 @@
     <link href="static/css/jquery.nouislider.min.css" rel="stylesheet">
     <link href="static/css/jquery.mobile-1.4.0.min.css" rel="stylesheet">
     <link href="static/css/table.css" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
 
     <script src="static/js/jquery-2.0.3.min.js"></script>
     <script src="static/js/jquery.mobile-1.4.0.min.js"></script>
@@ -31,91 +32,235 @@
       </div>
     </div>
     <div data-role="panel" id="filterPanel" data-position="left" data-display="overlay">
+      <button onclick="filter_show()">filter</button>
       <div>
-	<select id="brand">
+	<select id="model">
 	</select>
       </div>
+
       <div>
 	<label>
-	  <input id="date" type="checkbox">
+	  <input id="date" type="checkbox" checked>
 	  Release date
 	</label>
-	<div id="date-slider"></div>
-	<div class="ui-grid-a">
-	  <div class="ui-block-a">
-	    <input id="date-min">
-	  </div>
-	  <div class="ui-block-b">
-	    <input id="date-max">
+	<div id="date-panel">
+	  <div id="date-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="date-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="date-max">
+	    </div>
 	  </div>
 	</div>
+      </div>
+
+      <div>
 	<label>
-	  <input id="price" type="checkbox">
+	  <input id="price" type="checkbox" checked>
 	  Price
 	</label>
+	<div id="price-panel">
+	  <div id="price-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="price-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="price-max">
+	    </div>
+	  </div>
+	</div>
       </div>
+
       <div>
 	<label>
-	  <input id="max_reso" type="checkbox">
+	  <input id="max_reso" type="checkbox" checked>
 	  Max resolution
 	</label>
+	<div id="max_reso-panel">
+	  <div id="max_reso-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="max_reso-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="max_reso-max">
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <div>
 	<label>
-	  <input id="low_reso" type="checkbox">
+	  <input id="low_reso" type="checkbox" checked>
 	  Low resolution
 	</label>
+	<div id="low_reso-panel">
+	  <div id="low_reso-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="low_reso-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="low_reso-max">
+	    </div>
+	  </div>
+	</div>
+      </div>
+
+      <div>
 	<label>
-	  <input id="pixels" type="checkbox">
+	  <input id="pixels" type="checkbox" checked>
 	  Pixels
 	</label>
+	<div id="pixels-panel">
+	  <div id="pixels-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="pixels-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="pixels-max">
+	    </div>
+	  </div>
+	</div>
       </div>
+
       <div>
 	<label>
-	  <input id="zoom_W" type="checkbox">
+	  <input id="zoom_W" type="checkbox" checked>
 	  Zoom wide
 	</label>
+	<div id="zoom_W-panel">
+	  <div id="zoom_W-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="zoom_W-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="zoom_W-max">
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <div>
 	<label>
-	  <input id="zoom_T" type="checkbox">
+	  <input id="zoom_T" type="checkbox" checked>
 	  Zoom tele
 	</label>
+	<div id="zoom_T-panel">
+	  <div id="zoom_T-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="zoom_T-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="zoom_T-max">
+	    </div>
+	  </div>
+	</div>
       </div>
       <div>
 	<label>
-	  <input id="normal_focus" type="checkbox">
+	  <input id="normal_focus" type="checkbox" checked>
 	  Normal focus range
 	</label>
-	<label>
-	  <input id="macro_focus" type="checkbox">
-	  Macro focus range
-	</label>
+	<div id="normal_focus-panel">
+	  <div id="normal_focus-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="normal_focus-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="normal_focus-max">
+	    </div>
+	  </div>
+	</div>
+
       </div>
       <div>
 	<label>
-	  <input id="storage" type="checkbox">
+	  <input id="macro_focus" type="checkbox" checked>
+	  Macro focus range
+	</label>
+	<div id="macro_focus-panel">
+	  <div id="macro_focus-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="macro_focus-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="macro_focus-max">
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <div>
+	<label>
+	  <input id="storage" type="checkbox" checked>
 	  Storage
 	</label>
+	<div id="storage-panel">
+	  <div id="storage-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="storage-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="storage-max">
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <div>
 	<label>
-	  <input id="weight" type="checkbox">
+	  <input id="weight" type="checkbox" checked>
 	  Weight
 	</label>
-	<label>
-	  <input id="dimension" type="checkbox">
-	  Dimension
-	</label>
+	<div id="weight-panel">
+	  <div id="weight-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="weight-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="weight-max">
+	    </div>
+	  </div>
+	</div>
       </div>
+      <div>
+	<label>
+	  <input id="dimensions" type="checkbox" checked>
+	  Dimensions
+	</label>
+	<div id="dimensions-panel">
+	  <div id="dimensions-slider"></div>
+	  <div class="ui-grid-a">
+	    <div class="ui-block-a">
+	      <input id="dimensions-min">
+	    </div>
+	    <div class="ui-block-b">
+	      <input id="dimensions-max">
+	    </div>
+	  </div>
+	</div>
+      </div>
+
     </div>
 
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span12" id="container">
 
-          <div id="diagram" class="row-fluid" style="height: 600px; overflow:scroll">
+	  <!--          <div id="diagram" class="row-fluid" style="height: 600px; overflow:scroll">-->
+	  <div id="diagram">
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->
-      <hr>
-
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>Class project for INF 229</p>
       </footer>
 
     </div><!--/.fluid-container-->
