@@ -12,8 +12,13 @@ var data = [];
 var max_value = {};
 var min_value = {};
 
+
 //current display function
-var diagram_f = show_table;
+var current_diagram_f = show_table;
+var subdata = data; //subdata by filter
+var subcolumns = properties; //subcolumns by filter
+var filter;  //current filter
+
 
 function parse_data(){
     d3.csv("camera.csv", function(d){
@@ -117,7 +122,7 @@ function load_filter(){
     }
 }
 
-function create_filter(){
+function get_filter(){
     var values = {};
     values["model"] = $("#model").val();
     for(var i = 0; i < number_properties.length; i++){
@@ -126,7 +131,6 @@ function create_filter(){
 	    values[p] = $("#"+p+"-slider").val();
 	}
     };
-    console.log(values);
     return values;
 }
 
@@ -153,17 +157,29 @@ function filter_data(data, filter){
     return result;
 }
 
-function filter_show(){
-    var filter = create_filter();
-    var subdata = filter_data(data, filter);
-    var columns = Object.keys(filter);
-
+function diagram_update(data, columns){
     d3.selectAll("#diagram").remove();
     d3.select("#container")
 	.append("div")
 	.attr("id", "diagram");
-    diagram_f(subdata, columns);
+    current_diagram_f(subdata, columns);
 }
+
+function function_clicked(display_f){
+    if(current_diagram_f != display_f){
+	current_diagram_f = display_f;
+
+	diagram_update(subdata, subcolumns);
+    }
+}
+
+function filter_clicked(){
+    filter = get_filter();
+    subdata = filter_data(data, filter);
+p    subcolumns = Object.keys(filter);
+    diagram_update(subdata, subcolumns);
+}
+
 $(function(){
     parse_data();
 })

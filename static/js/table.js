@@ -30,10 +30,10 @@ function show_table(data, columns){
 	    if (bar_properties.indexOf(d.column) > -1){
 		header.append("svg")
 		    .attr("width", 80)
-		    .attr("height", 11)
+		    .attr("height", 6)
 		    .append("rect")
-		    .attr("height", 11)
-		    .attr("width", function(d) { return d.value / max_value[d.column] * 78; });
+		    .attr("height", "100%")
+		    .attr("width", function(d) { return d.value / max_value[d.column] * 80; });
 	    }
 	    else{
 		header.text(function(d) { return d.value});
