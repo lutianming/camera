@@ -176,7 +176,7 @@ function function_clicked(display_f){
 function filter_clicked(){
     filter = get_filter();
     subdata = filter_data(data, filter);
-p    subcolumns = Object.keys(filter);
+    subcolumns = Object.keys(filter);
     diagram_update(subdata, subcolumns);
 }
 
