@@ -1,3 +1,10 @@
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d, i) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d[i] + "</span>";
+  });
+
 function show_table(data, columns){
     var table = d3.select("#diagram").append("table");
     var thead = table.append("thead");
@@ -18,7 +25,8 @@ function show_table(data, columns){
 	.selectAll("tr")
 	.data(data)
 	.enter()
-	.append("tr");
+	.append("tr")
+	.attr("id", function(d){ return d["model"]; });
 
     rows.selectAll("td")
 	.data(function(row) { return columns.map(function(column){
@@ -39,4 +47,18 @@ function show_table(data, columns){
 		header.text(function(d) { return d.value});
 	    }
 	});
+    d3.selectAll("tbody td")
+	.on('mouseover', tip.show)
+	.on('mouseout', tip.hide);
+}
+
+function filter_table(shown_data){
+    var rows = d3.selectAll("tbody tr").each(function(d, i){
+	var tr = $(this);
+	if(shown_data.indexOf(tr.attr("id")) != -1){
+	    tr.css({"display":""});
+	}else{
+	    tr.css({"display": "none"});
+	}
+    })
 }

@@ -1,0 +1,14 @@
+#filterPanel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15%;
+    height: auto;
+    background-color: gray;
+    z-index: 5000;
+    display: none;
+}
+
+.noUi-target{
+    width: 90%;
+}

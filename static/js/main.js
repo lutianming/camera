@@ -54,8 +54,8 @@ function parse_data(){
 	    });
 	}
 //	load_data(data, properties);
-	show_table(data, properties);
 	load_filter();
+	show_table(data, properties);
     });
 }
 
@@ -99,6 +99,8 @@ function load_filter(){
     .text(function(d) {return d;})
     .attr("value", function(d){ return d;});
 
+    $("#model").multiselect();
+
     for(var i = 0; i < number_properties.length; i++){
 	var p = number_properties[i];
 	$("#"+p+"-slider").noUiSlider({
@@ -109,8 +111,6 @@ function load_filter(){
 		to: [$("#"+p+"-min"), $("#"+p+"-max") ]
 	    }
 	});
-
-	$("#"+p).attr("checked", true).checkboxradio("refresh");
 
 	$("#"+p).click(function(){
 	    if(this.checked){
@@ -140,7 +140,15 @@ function filter_data(data, filter){
 	for(var p in filter){
 	    var value = filter[p];
 	    if(p == "model"){
-		if(d[p].indexOf(value) == -1){
+		var contained = false;
+		for(var i = 0; i < value.length; i++){
+		    var brand = value[i];
+		    if(d[p].indexOf(brand) != -1){
+			contained = true;
+			break;
+		    }
+		}
+		if(!contained){
 		    re = false;
 		    break;
 		}
@@ -162,23 +170,36 @@ function diagram_update(data, columns){
     d3.select("#container")
 	.append("div")
 	.attr("id", "diagram");
-    current_diagram_f(subdata, columns);
+    current_diagram_f(data, columns);
 }
 
 function function_clicked(display_f){
     if(current_diagram_f != display_f){
 	current_diagram_f = display_f;
-
 	diagram_update(subdata, subcolumns);
     }
+}
+
+function show_filter(){
+    $("#filterPanel").show("fast");
 }
 
 function filter_clicked(){
     filter = get_filter();
     subdata = filter_data(data, filter);
     subcolumns = Object.keys(filter);
-    diagram_update(subdata, subcolumns);
+    filter_table(subdata.map(function(d){ return d["model"];}));
+//    diagram_update(subdata, subcolumns);
 }
+
+//hide filter panel
+$(document).click(function(event) {
+    if($(event.target).parents().index($('#filterPanel')) == -1) {
+        if($('#filterPanel').is(":visible")) {
+            $('#filterPanel').hide();
+        }
+    }
+})
 
 $(function(){
     parse_data();
