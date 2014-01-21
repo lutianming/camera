@@ -8,10 +8,19 @@ var brand = ["Agfa", "Canon", "Casio", "Epson", "Fujifilm", "HP",
 	     "JVC", "Kodak", "Kyocera", "Leica","Nikon", "Olympus",
 	    "Panasonic", "Pentax", "Ricoh", "Samsung", "Sanyo", "Sony",
 	    "Toshiba"];
-var data = [];
-var max_value = {};
-var min_value = {};
 
+var colors = {};
+var colorgen = d3.scale.category20();
+for(var i = 0; i < brand.length; i++){
+    colors[brand[i]] = colorgen(i);
+}
+
+function get_color(d){
+    return colors[d.model.split(" ")[0]];
+}
+
+var data = [];
+var value_range = {};
 
 //current display function
 var current_diagram_f = show_table;
@@ -23,10 +32,11 @@ var filter;  //current filter
 function parse_data(){
     d3.csv("camera.csv", function(d){
 	//callback, store data in var
-	for(var i=0; i<d.length; i++){
+	for(var i = 0; i<d.length; i++){
 	    var tmp = d[i];
 	    tmp = {
 		model: tmp.model,
+		brand: tmp.model.split(" ")[0],
 		date: +tmp.release_date,
 		max_reso: +tmp.max_reso,
 		low_reso: +tmp.low_reso,
@@ -46,16 +56,14 @@ function parse_data(){
 	//get max and min values
 	for(var i = 0; i < number_properties.length; i++){
 	    var p = number_properties[i];
-	    max_value[p] = d3.max(data, function(d){
-		return d[p];
-	    });
-	    min_value[p] = d3.min(data, function(d){
+	    value_range[p] = d3.extent(data, function(d){
 		return d[p];
 	    });
 	}
 
 	load_filter();
-	current_diagram_f(data, properties);
+//	current_diagram_f(data, properties);
+	show_parallel(data, properties);
     });
 }
 
@@ -104,8 +112,8 @@ function load_filter(){
     for(var i = 0; i < number_properties.length; i++){
 	var p = number_properties[i];
 	$("#"+p+"-slider").noUiSlider({
-	    range: [min_value[p], max_value[p]],
-	    start: [min_value[p], max_value[p]],
+	    range: [value_range[p][0], value_range[p][1]],
+	    start: [value_range[p][0], value_range[p][1]],
 	    serialization: {
 		resolution: 1,
 		to: [$("#"+p+"-min"), $("#"+p+"-max") ]
@@ -166,19 +174,24 @@ function filter_data(data, filter){
 }
 
 function diagram_update(data, columns){
-    d3.selectAll("#diagram").remove();
-    d3.select("#container")
-	.append("div")
-	.attr("id", "diagram");
-    current_diagram_f(data, columns);
+    if(current_diagram_f == show_table){
+	filter_table(subdata.map(function(d){ return d["model"];}));
+    }else if(current_diagram_f == show_parallel){
+	filter_parallel(columns);
+    }
+
 }
 
 function function_clicked(display_f){
     if(current_diagram_f != display_f){
 	current_diagram_f = display_f;
-	diagram_update(data, subcolumns);
-    }
 
+	d3.selectAll("#diagram").remove();
+	d3.select("#container")
+    	    .append("div")
+    	    .attr("id", "diagram");
+	current_diagram_f(subdata, subcolumns);
+    }
 }
 
 function show_filter(){
@@ -189,7 +202,6 @@ function filter_clicked(){
     filter = get_filter();
     subdata = filter_data(data, filter);
     subcolumns = Object.keys(filter);
-//    filter_table(subdata.map(function(d){ return d["model"];}));
     diagram_update(subdata, subcolumns);
 }
 

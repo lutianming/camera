@@ -12,3 +12,8 @@
 .noUi-target{
     width: 90%;
 }
+
+#diagram {
+    width: auto;
+    height: 100%;
+}

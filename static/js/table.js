@@ -8,7 +8,7 @@ function show_table(data, columns){
 	.data(columns)
 	.enter()
 	.append("th")
-	.text(function(d) { return d});
+	.text(function(d) { return d; });
 
     d3.selectAll("thead th").data(columns).on("click", function(k) {
 	rows.sort(function(a, b) { return b[k] - a[k]; });
@@ -34,7 +34,7 @@ function show_table(data, columns){
 		    .attr("height", 6)
 		    .append("rect")
 		    .attr("height", "100%")
-		    .attr("width", function(d) { return d.value / max_value[d.column] * 80; });
+		    .attr("width", function(d) { return d.value / value_range[d.column][1] * 80; });
 	    }
 	    else{
 		header.text(function(d) { return d.value;});
