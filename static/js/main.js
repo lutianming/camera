@@ -53,9 +53,9 @@ function parse_data(){
 		return d[p];
 	    });
 	}
-//	load_data(data, properties);
+
 	load_filter();
-	show_table(data, properties);
+	current_diagram_f(data, properties);
     });
 }
 
@@ -176,8 +176,9 @@ function diagram_update(data, columns){
 function function_clicked(display_f){
     if(current_diagram_f != display_f){
 	current_diagram_f = display_f;
-	diagram_update(subdata, subcolumns);
+	diagram_update(data, subcolumns);
     }
+
 }
 
 function show_filter(){
@@ -188,8 +189,8 @@ function filter_clicked(){
     filter = get_filter();
     subdata = filter_data(data, filter);
     subcolumns = Object.keys(filter);
-    filter_table(subdata.map(function(d){ return d["model"];}));
-//    diagram_update(subdata, subcolumns);
+//    filter_table(subdata.map(function(d){ return d["model"];}));
+    diagram_update(subdata, subcolumns);
 }
 
 //hide filter panel
@@ -199,8 +200,8 @@ $(document).click(function(event) {
             $('#filterPanel').hide();
         }
     }
-})
+});
 
 $(function(){
     parse_data();
-})
+});

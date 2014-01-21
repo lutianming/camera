@@ -1,10 +1,3 @@
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d, i) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" + d[i] + "</span>";
-  });
-
 function show_table(data, columns){
     var table = d3.select("#diagram").append("table");
     var thead = table.append("thead");
@@ -30,7 +23,7 @@ function show_table(data, columns){
 
     rows.selectAll("td")
 	.data(function(row) { return columns.map(function(column){
-	    return {column: column, value: row[column]}
+	    return {column: column, value: row[column]};
 	});})
 	.enter().append("td")
 	.each(function(d){
@@ -44,12 +37,9 @@ function show_table(data, columns){
 		    .attr("width", function(d) { return d.value / max_value[d.column] * 80; });
 	    }
 	    else{
-		header.text(function(d) { return d.value});
+		header.text(function(d) { return d.value;});
 	    }
 	});
-    d3.selectAll("tbody td")
-	.on('mouseover', tip.show)
-	.on('mouseout', tip.hide);
 }
 
 function filter_table(shown_data){
@@ -60,5 +50,5 @@ function filter_table(shown_data){
 	}else{
 	    tr.css({"display": "none"});
 	}
-    })
+    });
 }
