@@ -1,8 +1,8 @@
 var pc;
 function show_radar(data, columns){
-   var w = 500,
+    var w = 500,
 	h = 500;
-
+    
 var colorscale = d3.scale.category10();
 
 //Legend titles
@@ -70,7 +70,7 @@ var mycfg = {
 
 //Call function to draw the Radar chart
 //Will expect that data is in %'s
-RadarChart.draw("#chart", d, mycfg);
+RadarChart.draw("#diagram", d, mycfg);
 
 ////////////////////////////////////////////
 /////////// Initiate legend ////////////////
