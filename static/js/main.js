@@ -1,6 +1,23 @@
 var properties = ["model", "date", "max_reso", "low_reso", "pixels",
 		  "zoom_W", "zoom_T", "normal_focus", "macro_focus",
 		  "storage", "weight", "dimensions", "price"];
+var detailed_properties = [
+    {id:"model", name:"model", field:"model"},
+    {id: "date", name:"date", field:"date"},
+    {id: "max_reso", name:"max_reso", field:"max_reso"},
+    {id: "low_reso", name:"low_reso", field:"low_reso"},
+    {id: "pixels",name: "pixels",field: "pixels"},
+    {id: "zoom_W", name:"zoom_W", field:"zoom_W"},
+    {id: "zoom_T", name:"zoom_T", field:"zoom_T"},
+    {id: "normal_focus", name: "normal_focus", field: "normal_focus"},
+    {id: "macro_focus", name: "macro_focus", field: "macro_focus"},
+    {id: "storage", name: "storage", field: "storage"},
+    {id: "weight", name: "weight", field: "weight"},
+    {id: "dimensions", name: "dimensions", field: "dimensions"},
+    {id: "price", name: "price", field: "price"}
+];
+var number_detailed_properties = detailed_properties.slice(1);
+
 var number_properties = properties.slice(1);
 var bar_properties = properties.slice(2);
 
@@ -63,8 +80,6 @@ function parse_data(){
 
 	load_filter();
 	current_diagram_f("#diagram", data, properties);
-//	show_parallel(data, properties);
-
     });
 }
 

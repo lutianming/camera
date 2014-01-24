@@ -29,7 +29,5 @@ var mycfg = {
 	return c[x%m]; //Get a random color
     }
 };
-
     RadarChart.draw(id, d, mycfg);
-
 }
