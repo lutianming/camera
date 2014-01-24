@@ -4,6 +4,7 @@
     <link href="static/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="static/css/bootstrap-multiselect.css" rel="stylesheet">
     <link href="static/css/jquery.nouislider.min.css" rel="stylesheet">
+    <link href="static/css/slick.grid.css" rel="stylesheet">
     <link href="static/css/d3.parcoords.css" rel="stylesheet">
 
     <link href="static/css/table.css" rel="stylesheet">
@@ -13,6 +14,14 @@
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/bootstrap-multiselect.js"></script>
     <script src="static/js/jquery.nouislider.min.js"></script>
+    <script src="static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script src="static/js/jquery.event.drag-2.2.js"></script>
+
+
+    <script src="static/js/slick.core.js"></script>
+    <script src="static/js/slick.formatters.js"></script>
+    <script src="static/js/slick.grid.js"></script>
+
     <script src="static/js/d3.v3.min.js" charset="utf-8"></script>
     <script src="static/js/d3.parcoords.js"></script>
 
@@ -33,7 +42,7 @@
 	      <li><a href="javascript:function_clicked(show_table)">Table</a></li>
 	      <li><a href="javascript:function_clicked()">Scatter plot matrix</a></li>
 	      <li><a href="javascript:function_clicked(show_parallel)">Parallel coordinate</a></li>
-	      <li><a href="javascript:function_clicked()">Radar chart</a></li>
+	      <li><a href="javascript:function_clicked(show_radar)">Radar chart</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -262,6 +271,8 @@
         <div class="span12" id="container">
 
 	  <!--          <div id="diagram" class="row-fluid" style="height: 600px; overflow:scroll">-->
+	  <div id="subpanel">
+	  </div>
 	  <div id="diagram">
           </div><!--/row-->
         </div><!--/span-->

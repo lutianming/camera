@@ -23,7 +23,7 @@ var data = [];
 var value_range = {};
 
 //current display function
-var current_diagram_f = show_table;
+var current_diagram_f = slick_table;
 var subdata = data; //subdata by filter
 var subcolumns = properties; //subcolumns by filter
 var filter;  //current filter
@@ -62,8 +62,9 @@ function parse_data(){
 	}
 
 	load_filter();
-//	current_diagram_f(data, properties);
-	show_parallel(data, properties);
+	current_diagram_f("#diagram", data, properties);
+//	show_parallel(data, properties);
+
     });
 }
 
@@ -178,6 +179,8 @@ function diagram_update(data, columns){
 	filter_table(subdata.map(function(d){ return d["model"];}));
     }else if(current_diagram_f == show_parallel){
 	filter_parallel(columns);
+    }else if(current_diagram_f == slick_table){
+
     }
 
 }
@@ -190,7 +193,7 @@ function function_clicked(display_f){
 	d3.select("#container")
     	    .append("div")
     	    .attr("id", "diagram");
-	current_diagram_f(subdata, subcolumns);
+	current_diagram_f("#diagram", subdata, subcolumns);
     }
 }
 

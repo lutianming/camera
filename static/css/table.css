@@ -76,3 +76,23 @@ tbody tr:hover rect {
   top: 100%;
   left: 0;
 }
+
+.slick-row{
+    color: steelblue;
+}
+
+.slick-row:hover{
+    color: brown;
+    font: 12px sans-serif;
+}
+.slick-row rect {
+    fill: steelblue;
+}
+
+.slick-row:hover svg {
+    height: 12px;
+}
+
+.slick-row:hover rect {
+    fill: brown;
+}
