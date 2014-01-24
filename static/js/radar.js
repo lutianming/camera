@@ -11,7 +11,7 @@ function show_radar(id,data,columns){
 	var obj = [];
 	var tmp = data[i];
 	for(var j=0; j<number_columns; j++){
-	    var col = colums[j]["field"];
+	    var col = columns[j]["field"];
 	    obj.push({
 		axis: columns[j]["name"],
 		value: tmp[col]
