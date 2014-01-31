@@ -54,7 +54,7 @@ function filter_table(shown_data){
 }
 
 function formatter(row, cell, value, columnDef, dataContext) {
-    if(columnDef.name == "model" || columnDef.name == "date"){
+    if(columnDef.field == "model" || columnDef.field == "date"){
 	return value;
     }
     else{
@@ -72,12 +72,16 @@ function slick_table(id, data, columns){
     for(var i = 0; i < columns.length; i++){
 	var c = columns[i];
 	c["formatter"] = formatter;
+	c["resizable"] = true;
+	c["sortable"] = true;
     }
 
     var options = {
 	editable: false,
 	enableAddRow: false,
-	enableCellNavigation: true
+	enableCellNavigation: true,
+	fullWidthRows: true,
+	forceFitColumns: true
     };
 
     grid = new Slick.Grid(id, data, columns, options);
