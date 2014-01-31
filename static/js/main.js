@@ -4,13 +4,13 @@ var properties = ["model", "date", "max_reso", "low_reso", "pixels",
 var detailed_properties = [
     {id:"model", name:"model", field:"model"},
     {id: "date", name:"date", field:"date"},
-    {id: "max_reso", name:"max_reso", field:"max_reso"},
-    {id: "low_reso", name:"low_reso", field:"low_reso"},
+    {id: "max_reso", name:"max resolution", field:"max_reso"},
+    {id: "low_reso", name:"low resolution", field:"low_reso"},
     {id: "pixels",name: "pixels",field: "pixels"},
-    {id: "zoom_W", name:"zoom_W", field:"zoom_W"},
-    {id: "zoom_T", name:"zoom_T", field:"zoom_T"},
-    {id: "normal_focus", name: "normal_focus", field: "normal_focus"},
-    {id: "macro_focus", name: "macro_focus", field: "macro_focus"},
+    {id: "zoom_W", name:"zoom Wide", field:"zoom_W"},
+    {id: "zoom_T", name:"zoom Tele", field:"zoom_T"},
+    {id: "normal_focus", name: "normal focus range", field: "normal_focus"},
+    {id: "macro_focus", name: "macro focus range", field: "macro_focus"},
     {id: "storage", name: "storage", field: "storage"},
     {id: "weight", name: "weight", field: "weight"},
     {id: "dimensions", name: "dimensions", field: "dimensions"},
@@ -45,7 +45,6 @@ var subdata = data; //subdata by filter
 var subcolumns = properties; //subcolumns by filter
 var filter;  //current filter
 
-
 function parse_data(){
     d3.csv("camera.csv", function(d){
 	//callback, store data in var
@@ -79,7 +78,7 @@ function parse_data(){
 	}
 
 	load_filter();
-	current_diagram_f("#diagram", data, properties);
+	current_diagram_f("#diagram", data, detailed_properties);
     });
 }
 

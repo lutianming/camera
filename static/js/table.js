@@ -59,7 +59,7 @@ function formatter(row, cell, value, columnDef, dataContext) {
     }
     else{
 	var color = "blue";
-	var v = value/(value_range[columnDef.name][1]) * 80;
+	var v = value/(value_range[columnDef.field][1]) * 80;
 	v = Math.round(v);
 	// return "<span class='percent-complete-bar' style='background:" + color + ";width:" + v + "%'></span>";
 	return "<svg width='80' height='12'><rect height='100%' width='"+ v + "'></rect></svg>";
@@ -69,25 +69,10 @@ function formatter(row, cell, value, columnDef, dataContext) {
 
 function slick_table(id, data, columns){
     var grid;
-    var cols = [];
     for(var i = 0; i < columns.length; i++){
 	var c = columns[i];
-	cols.push({
-	    id: c,
-	    name: c,
-	    field: c,
-	    formatter: formatter
-	});
+	c["formatter"] = formatter;
     }
-
-    // var columns = [
-    // 	{id: "title", name: "Title", field: "title", width: 120, cssClass: "cell-title", formatter: formatter},
-    // 	{id: "duration", name: "Duration", field: "duration"},
-    // 	{id: "%", name: "% Complete", field: "percentComplete", width: 80, resizable: false, formatter: Slick.Formatters.PercentCompleteBar},
-    // 	{id: "start", name: "Start", field: "start", minWidth: 60},
-    // 	{id: "finish", name: "Finish", field: "finish", minWidth: 60},
-    // 	{id: "effort-driven", name: "Effort Driven", sortable: false, width: 80, minWidth: 20, maxWidth: 80, cssClass: "cell-effort-driven", field: "effortDriven", formatter: Slick.Formatters.Checkmark}
-    // ];
 
     var options = {
 	editable: false,
@@ -95,5 +80,5 @@ function slick_table(id, data, columns){
 	enableCellNavigation: true
     };
 
-    grid = new Slick.Grid(id, data, cols, options);
+    grid = new Slick.Grid(id, data, columns, options);
 }
