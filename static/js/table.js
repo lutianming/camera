@@ -107,6 +107,21 @@ function slick_table(id, data, columns){
 	e.preventDefault();
     });
 
+    grid.onSelectedRowsChanged.subscribe(function(e, args){
+	if(pc){
+	    var index = grid.getSelectedRows();
+	    if(index.length == 0){
+		pc.unhighlight();
+	    }else{
+		var items = [];
+		for(var i = 0; i<index.length; i++){
+		    items.push(data[index[i]]);
+		}
+		pc.highlight(items);
+	    }
+	}
+    });
+
     grid.onCellChange.subscribe(function (e, args) {
 	dataView.updateItem(args.item.id, args.item);
     });

@@ -1,13 +1,13 @@
 var pc;
 function show_parallel(id, data, columns){
-    d3.select("#diagram").append('div')
+    d3.select(id).append('div')
     .append("button")
     .text("Reset brush")
     .on("click", function(){
 	pc.brushReset();
     });
 
-    d3.selectAll("#diagram")
+    d3.selectAll(id)
     .attr("class", "parcoords");
     pc = d3.parcoords()(id)
 	.data(data)
@@ -17,6 +17,13 @@ function show_parallel(id, data, columns){
 	.brushable()
 	.reorderable()
 	.interactive();
+    pc.on("brush", function(d){
+	if(dataview){
+	    dataview.beginUpdate();
+	    dataview.setItems(d, ["model"]);
+	    dataview.endUpdate();
+	}
+    })
 }
 
 function filter_parallel(columns){

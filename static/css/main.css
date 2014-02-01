@@ -9,15 +9,21 @@
     display: none;
 }
 
-.noUi-target{
-    width: 90%;
-}
-
 #diagram {
-    width: auto;
+    width: 100%;
     height: 100%;
 }
-
+#table{
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    outline: 0px none;
+    position: relative;
+}
+#parrallel{
+    width: 100%;
+    height: 300px;
+}
 input[type=text]{
     border:0;
     color:#f6931f;

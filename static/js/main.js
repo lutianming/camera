@@ -316,12 +316,19 @@ function table_click(){
 
 function matrix_click(){
     init_diagram();
-    show_matrix("#diagram", data, properties);
+    show_matrix("#diagram", data.slice(0,50), properties);
 }
 
 function parrallel_click(){
     init_diagram();
-    show_parallel("#diagram", data, properties);
+    d3.select("#diagram")
+	.append("div")
+	.attr("id", "parrallel");
+    d3.select("#diagram")
+	.append("div")
+	.attr("id", "table");
+    slick_table("#table", data, detailed_properties);
+    show_parallel("#parrallel", data, detailed_properties);
 }
 
 function radar_click(){

@@ -55,10 +55,10 @@ ScatterMatrix.prototype.render = function () {
 	    }
 	});
 
-	var size_control = control.append('div').attr('class', 'scatter-matrix-size-control');
-	var color_control = control.append('div').attr('class', 'scatter-matrix-color-control');
-	var filter_control = control.append('div').attr('class', 'scatter-matrix-filter-control');
-	var variable_control = control.append('div').attr('class', 'scatter-matrix-variable-control');
+//	var size_control = control.append('div').attr('class', 'scatter-matrix-size-control');
+//	var color_control = control.append('div').attr('class', 'scatter-matrix-color-control');
+//	var filter_control = control.append('div').attr('class', 'scatter-matrix-filter-control');
+//	var variable_control = control.append('div').attr('class', 'scatter-matrix-variable-control');
 //	var drill_control = control.append('div').attr('class', 'scatter-matrix-drill-control');
 
 	// shared control states
@@ -71,104 +71,104 @@ ScatterMatrix.prototype.render = function () {
 	}
 	var drill_variables = [];
 
-	function set_filter(variable) {
-	    filter_control.selectAll('*').remove();
-	    if (variable) {
-		// Get unique values for this variable
-		var values = [];
-		data.forEach(function(d) {
-		    var v = d[variable];
-		    if (values.indexOf(v) < 0) { values.push(v); }
-		});
+	// function set_filter(variable) {
+	//     filter_control.selectAll('*').remove();
+	//     if (variable) {
+	// 	// Get unique values for this variable
+	// 	var values = [];
+	// 	data.forEach(function(d) {
+	// 	    var v = d[variable];
+	// 	    if (values.indexOf(v) < 0) { values.push(v); }
+	// 	});
 
-		selected_colors = [];
-		for (var j in values) {
-		    var v = values[j];
-		    selected_colors.push(v);
-		}
+	// 	selected_colors = [];
+	// 	for (var j in values) {
+	// 	    var v = values[j];
+	// 	    selected_colors.push(v);
+	// 	}
 
-		var filter_li =
-		    filter_control
-		    .append('p').text('Filter by '+variable+': ')
-		    .append('ul')
-		    .selectAll('li')
-		    .data(values)
-		    .enter().append('li');
+	// 	var filter_li =
+	// 	    filter_control
+	// 	    .append('p').text('Filter by '+variable+': ')
+	// 	    .append('ul')
+	// 	    .selectAll('li')
+	// 	    .data(values)
+	// 	    .enter().append('li');
 
-		filter_li.append('input')
-                    .attr('type', 'checkbox')
-                    .attr('checked', 'checked')
-                    .on('click', function(d, i) {
-			var new_selected_colors = [];
-			for (var j in selected_colors) {
-			    var v = selected_colors[j];
-			    if (v !== d || this.checked) { new_selected_colors.push(v); }
-			}
-			if (this.checked) { new_selected_colors.push(d); }
-			selected_colors = new_selected_colors;
-			self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
-                    });
-		filter_li.append('label')
-                    .html(function(d) { return d; });
-	    }
-	}
+	// 	filter_li.append('input')
+        //             .attr('type', 'checkbox')
+        //             .attr('checked', 'checked')
+        //             .on('click', function(d, i) {
+	// 		var new_selected_colors = [];
+	// 		for (var j in selected_colors) {
+	// 		    var v = selected_colors[j];
+	// 		    if (v !== d || this.checked) { new_selected_colors.push(v); }
+	// 		}
+	// 		if (this.checked) { new_selected_colors.push(d); }
+	// 		selected_colors = new_selected_colors;
+	// 		self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
+        //             });
+	// 	filter_li.append('label')
+        //             .html(function(d) { return d; });
+	//     }
+	// }
 
-	size_a = size_control.append('p').text('Change plot size: ');
-	size_a.append('a')
-            .attr('href', '#')
-            .html('-')
-            .on('click', function() {
-		self.__cell_size *= 0.75;
-		self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
-            });
-	size_a.append('span').html('&nbsp;');
-	size_a.append('a')
-            .attr('href', '#')
-            .html('+')
-            .on('click', function() {
-		self.__cell_size *= 1.25;
-		self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
-            });
+	// size_a = size_control.append('p').text('Change plot size: ');
+	// size_a.append('a')
+        //     .attr('href', '#')
+        //     .html('-')
+        //     .on('click', function() {
+	// 	self.__cell_size *= 0.75;
+	// 	self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
+        //     });
+	// size_a.append('span').html('&nbsp;');
+	// size_a.append('a')
+        //     .attr('href', '#')
+        //     .html('+')
+        //     .on('click', function() {
+	// 	self.__cell_size *= 1.25;
+	// 	self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
+        //     });
 
-	color_control.append('p').text('Select a variable to color:');
-	color_control
-	    .append('ul')
-	    .selectAll('li')
-	    .data([undefined].concat(string_variables))
-	    .enter().append('li')
-            .append('a')
-            .attr('href', '#')
-            .text(function(d) { return d ? d : 'None'; })
-            .on('click', function(d, i) {
-		color_variable = d;
-		selected_colors = undefined;
-		self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
-		set_filter(d);
-            });
+	// color_control.append('p').text('Select a variable to color:');
+	// color_control
+	//     .append('ul')
+	//     .selectAll('li')
+	//     .data([undefined].concat(string_variables))
+	//     .enter().append('li')
+        //     .append('a')
+        //     .attr('href', '#')
+        //     .text(function(d) { return d ? d : 'None'; })
+        //     .on('click', function(d, i) {
+	// 	color_variable = d;
+	// 	selected_colors = undefined;
+	// 	self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
+	// 	set_filter(d);
+        //     });
 
-	var variable_li =
-	    variable_control
-            .append('p').text('Include variables: ')
-            .append('ul')
-            .selectAll('li')
-            .data(numeric_variables)
-            .enter().append('li');
+	// var variable_li =
+	//     variable_control
+        //     .append('p').text('Include variables: ')
+        //     .append('ul')
+        //     .selectAll('li')
+        //     .data(numeric_variables)
+        //     .enter().append('li');
 
-	variable_li.append('input')
-            .attr('type', 'checkbox')
-            .attr('checked', 'checked')
-            .on('click', function(d, i) {
-                var new_to_include = [];
-                for (var j in to_include) {
-                    var v = to_include[j];
-                    if (v !== d || this.checked) { new_to_include.push(v); }
-                }
-                if (this.checked) { new_to_include.push(d); }
-                to_include = new_to_include;
-                self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
-            });
-	variable_li.append('label')
-            .html(function(d) { return d; });
+	// variable_li.append('input')
+        //     .attr('type', 'checkbox')
+        //     .attr('checked', 'checked')
+        //     .on('click', function(d, i) {
+        //         var new_to_include = [];
+        //         for (var j in to_include) {
+        //             var v = to_include[j];
+        //             if (v !== d || this.checked) { new_to_include.push(v); }
+        //         }
+        //         if (this.checked) { new_to_include.push(d); }
+        //         to_include = new_to_include;
+        //         self.__draw(self.__cell_size, svg, color_variable, selected_colors, to_include, drill_variables);
+        //     });
+	// variable_li.append('label')
+        //     .html(function(d) { return d; });
 
 	// drill_li =
 	//     drill_control
