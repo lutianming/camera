@@ -88,9 +88,9 @@ function slick_table(id, data, columns){
     dataview = new Slick.Data.DataView();
     grid = new Slick.Grid(id, dataview, columns, options);
     grid.setSelectionModel(new Slick.RowSelectionModel());
-    grid.registerPlugin(new Slick.AutoTooltips({
-	enableForCells:true
-    }));
+    // grid.registerPlugin(new Slick.AutoTooltips({
+    // 	enableForCells:true
+    // }));
 
     grid.onKeyDown.subscribe(function (e) {
 	// select all rows on ctrl-a
