@@ -4,28 +4,36 @@
     <link href="static/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="static/css/bootstrap-multiselect.css" rel="stylesheet">
     <link href="static/css/jquery.nouislider.min.css" rel="stylesheet">
+    <link href="static/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="static/css/jquery.ui.slider.min.css" rel="stylesheet">
+
     <link href="static/css/slick.grid.css" rel="stylesheet">
+    <link href="static/css/slick-default-theme.css" rel="stylesheet">
+
     <link href="static/css/d3.parcoords.css" rel="stylesheet">
     <link href="static/css/scatter-matrix.css" rel="stylesheet">
 
     <link href="static/css/table.css" rel="stylesheet">
+
     <link href="static/css/main.css" rel="stylesheet">
 
     <script src="static/js/jquery-2.0.3.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/bootstrap-multiselect.js"></script>
     <script src="static/js/jquery.nouislider.min.js"></script>
-    <script src="static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script src="static/js/jquery-ui.min.js"></script>
+    <script src="static/js/jquery.ui.slider.min.js"></script>
     <script src="static/js/jquery.event.drag-2.2.js"></script>
-
 
     <script src="static/js/slick.core.js"></script>
     <script src="static/js/slick.formatters.js"></script>
     <script src="static/js/slick.grid.js"></script>
+    <script src="static/js/slick.dataview.js"></script>
+    <script src="static/js/slick.rowselectionmodel.js"></script>
+    <script src="static/js/slick.autotooltips.js"></script>
 
     <script src="static/js/d3.v3.min.js" charset="utf-8"></script>
     <script src="static/js/d3.parcoords.js"></script>
-    <script src="static/js/scatter-matrix.js"></script>
     <script src="static/js/radar-chart-min.js"></script>
 
     <script src="static/js/table.js"></script>
@@ -44,10 +52,10 @@
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
 	      <li><a href="javascript:show_filter()">Filter</a></li>
-	      <li><a href="javascript:function_clicked(show_table)">Table</a></li>
-	      <li><a href="javascript:function_clicked(show_matrix)">Scatter plot matrix</a></li>
-	      <li><a href="javascript:function_clicked(show_parallel)">Parallel coordinate</a></li>
-	      <li><a href="javascript:function_clicked(show_radar)">Radar chart</a></li>
+	      <li><a href="javascript:table_click()">Table</a></li>
+	      <li><a href="javascript:matrix_click()">Scatter plot matrix</a></li>
+	      <li><a href="javascript:parrallel_click()">Parallel coordinate</a></li>
+	      <li><a href="javascript:radar_click()">Radar chart</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -55,9 +63,10 @@
     </div>
     <div id="filterPanel">
       <button class="btn btn-primary" onclick="filter_clicked()">filter</button>
-      <div>
+      <div class="btn-group">
 	<select id="model" multiple="multiple">
 	</select>
+	<button id="model-toggle" class="btn">Select All</button>
       </div>
 
       <div>
@@ -66,15 +75,10 @@
 	  Release date
 	</label>
 	<div id="date-panel">
+	  <p>
+	    <input type="text" id="date-input">
+	  </p>
 	  <div id="date-slider"></div>
-	  <div class="row">
-	    <div class="col-md-1 col-md-offset-1">
-	      <input id="date-min">
-	    </div>
-	    <div class="col-md-1 col-md-offset-1">
-	      <input id="date-max">
-	    </div>
-	  </div>
 	</div>
       </div>
 
@@ -84,15 +88,10 @@
 	  Price
 	</label>
 	<div id="price-panel">
+	  <p>
+	    <input type="text" id="price-input">
+	  </p>
 	  <div id="price-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="price-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="price-max">
-	    </div>
-	  </div>
 	</div>
       </div>
 
@@ -102,15 +101,10 @@
 	  Max resolution
 	</label>
 	<div id="max_reso-panel">
+	  <p>
+	    <input type="text" id="max_reso-input">
+	  </p>
 	  <div id="max_reso-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="max_reso-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="max_reso-max">
-	    </div>
-	  </div>
 	</div>
       </div>
       <div>
@@ -119,15 +113,10 @@
 	  Low resolution
 	</label>
 	<div id="low_reso-panel">
+	  <p>
+	    <input type="text" id="low_reso-input">
+	  </p>
 	  <div id="low_reso-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="low_reso-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="low_reso-max">
-	    </div>
-	  </div>
 	</div>
       </div>
 
@@ -137,15 +126,10 @@
 	  Pixels
 	</label>
 	<div id="pixels-panel">
+	  <p>
+	    <input type="text" id="pixels-input">
+	  </p>
 	  <div id="pixels-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="pixels-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="pixels-max">
-	    </div>
-	  </div>
 	</div>
       </div>
 
@@ -155,15 +139,10 @@
 	  Zoom wide
 	</label>
 	<div id="zoom_W-panel">
+	  <p>
+	    <input type="text" id="zoom_W-input">
+	  </p>
 	  <div id="zoom_W-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="zoom_W-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="zoom_W-max">
-	    </div>
-	  </div>
 	</div>
       </div>
       <div>
@@ -172,15 +151,10 @@
 	  Zoom tele
 	</label>
 	<div id="zoom_T-panel">
+	  <p>
+	    <input type="text" id="zoom_T-input">
+	  </p>
 	  <div id="zoom_T-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="zoom_T-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="zoom_T-max">
-	    </div>
-	  </div>
 	</div>
       </div>
       <div>
@@ -189,15 +163,10 @@
 	  Normal focus range
 	</label>
 	<div id="normal_focus-panel">
+	  <p>
+	    <input type="text" id="normal_focus-input">
+	  </p>
 	  <div id="normal_focus-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="normal_focus-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="normal_focus-max">
-	    </div>
-	  </div>
 	</div>
 
       </div>
@@ -207,15 +176,10 @@
 	  Macro focus range
 	</label>
 	<div id="macro_focus-panel">
+	  <p>
+	    <input type="text" id="macro_focus-input">
+	  </p>
 	  <div id="macro_focus-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="macro_focus-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="macro_focus-max">
-	    </div>
-	  </div>
 	</div>
       </div>
       <div>
@@ -224,15 +188,10 @@
 	  Storage
 	</label>
 	<div id="storage-panel">
+	  <p>
+	    <input type="text" id="storage-input">
+	  </p>
 	  <div id="storage-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="storage-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="storage-max">
-	    </div>
-	  </div>
 	</div>
       </div>
       <div>
@@ -241,15 +200,10 @@
 	  Weight
 	</label>
 	<div id="weight-panel">
+	  <p>
+	    <input type="text" id="weight-input">
+	  </p>
 	  <div id="weight-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="weight-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="weight-max">
-	    </div>
-	  </div>
 	</div>
       </div>
       <div>
@@ -258,15 +212,10 @@
 	  Dimensions
 	</label>
 	<div id="dimensions-panel">
+	  <p>
+	    <input type="text" id="dimensions-input">
+	  </p>
 	  <div id="dimensions-slider"></div>
-	  <div class="ui-grid-a">
-	    <div class="ui-block-a">
-	      <input id="dimensions-min">
-	    </div>
-	    <div class="ui-block-b">
-	      <input id="dimensions-max">
-	    </div>
-	  </div>
 	</div>
       </div>
 
@@ -276,8 +225,6 @@
         <div class="span12" id="container">
 
 	  <!--          <div id="diagram" class="row-fluid" style="height: 600px; overflow:scroll">-->
-	  <div id="subpanel">
-	  </div>
 	  <div id="diagram">
           </div><!--/row-->
         </div><!--/span-->

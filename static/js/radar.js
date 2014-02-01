@@ -4,9 +4,6 @@ function show_radar(id,data,columns){
     var number_columns = columns.length;
 
     var d  = [];
-
-
-
     for(var i=0; i<number_elements; i++){
 	var obj = [];
 	var tmp = data[i];
@@ -20,14 +17,13 @@ function show_radar(id,data,columns){
 	d.push(obj);
     }
 
-
-var mycfg = {
-    color: function(){
-	c = ['red', 'yellow', 'pink', 'green', 'blue', 'olive', 'aqua', 'cadetblue', 'crimson'];
-	m = c.length - 1;
-	x = parseInt(Math.random()*100);
-	return c[x%m]; //Get a random color
-    }
-};
-    RadarChart.draw(id, d, mycfg);
+    var mycfg = {
+	color: function(){
+	    c = ['red', 'yellow', 'pink', 'green', 'blue', 'olive', 'aqua', 'cadetblue', 'crimson'];
+	    m = c.length - 1;
+	    x = parseInt(Math.random()*100);
+	    return c[x%m]; //Get a random color
+	}
+    };
+    RadarChart.draw(id, d);
 }

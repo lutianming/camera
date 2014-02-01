@@ -1,11 +1,12 @@
 var pc;
 function show_parallel(id, data, columns){
-    d3.select("#subpanel")
+    d3.select("#diagram").append('div')
     .append("button")
     .text("Reset brush")
     .on("click", function(){
 	pc.brushReset();
     });
+
     d3.selectAll("#diagram")
     .attr("class", "parcoords");
     pc = d3.parcoords()(id)

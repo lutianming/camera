@@ -1,3 +1,5 @@
+var grid;
+var dataview;
 function show_table(data, columns){
     var table = d3.select("#diagram").append("table");
     var thead = table.append("thead");
@@ -68,7 +70,6 @@ function formatter(row, cell, value, columnDef, dataContext) {
 }
 
 function slick_table(id, data, columns){
-    var grid;
     for(var i = 0; i < columns.length; i++){
 	var c = columns[i];
 	c["formatter"] = formatter;
@@ -84,5 +85,86 @@ function slick_table(id, data, columns){
 	forceFitColumns: true
     };
 
-    grid = new Slick.Grid(id, data, columns, options);
+    dataview = new Slick.Data.DataView();
+    grid = new Slick.Grid(id, dataview, columns, options);
+    grid.setSelectionModel(new Slick.RowSelectionModel());
+    grid.registerPlugin(new Slick.AutoTooltips({
+	enableForCells:true
+    }));
+
+    grid.onKeyDown.subscribe(function (e) {
+	// select all rows on ctrl-a
+	if (e.which != 65 || !e.ctrlKey) {
+	    return false;
+	}
+
+	var rows = [];
+	for (var i = 0; i < dataView.getLength(); i++) {
+	    rows.push(i);
+	}
+
+	grid.setSelectedRows(rows);
+	e.preventDefault();
+    });
+
+    grid.onCellChange.subscribe(function (e, args) {
+	dataView.updateItem(args.item.id, args.item);
+    });
+
+    dataview.onRowCountChanged.subscribe(function (e, args) {
+	grid.updateRowCount();
+	grid.render();
+    });
+
+    dataview.onRowsChanged.subscribe(function (e, args) {
+	grid.invalidateRows(args.rows);
+	grid.render();
+    });
+
+    grid.onSort.subscribe(function(e, args) {
+	var comparer = function(a, b) {
+	    var x = a[args.sortCol.field], y = b[args.sortCol.field];
+	    return (x == y ? 0 : (x > y ? 1 : -1));
+	}
+	dataview.sort(comparer, args.sortAsc);
+    });
+
+    dataview.beginUpdate();
+    dataview.setItems(data, ["model"]);
+    dataview.setFilterArgs(get_filter());
+    dataview.setFilter(table_filter);
+    dataview.endUpdate();
+}
+
+function table_filter(item, args){
+    var re = true;
+    for(var p in args){
+	var value = args[p];
+	if(p == "model"){
+	    var contained = false;
+	    for(var i = 0; i < value.length; i++){
+		var brand = value[i];
+		if(item[p].indexOf(brand) != -1){
+		    contained = true;
+		    break;
+		}
+	    }
+	    if(!contained){
+		re = false;
+		break;
+	    }
+	}
+	else{
+	    if(item[p] < value[0] || item[p] > value[1]){
+		re = false;
+		break;
+	    }
+	}
+    }
+    return re;
+}
+
+function update_filter(){
+    dataview.setFilterArgs(get_filter());
+    dataview.refresh();
 }

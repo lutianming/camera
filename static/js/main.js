@@ -122,18 +122,90 @@ function load_filter(){
     .text(function(d) {return d;})
     .attr("value", function(d){ return d;});
 
+    var h_runfilters = null;
+    function multiselect_selected($el) {
+	var ret = true;
+	$('option', $el).each(function(element) {
+	    if (!!!$(this).prop('selected')) {
+		ret = false;
+	    }
+	});
+	return ret;
+    }
+    /**
+     * Selects all the options
+     * @param {jQuery} $el
+     * @returns {undefined}
+     */
+    function multiselect_selectAll($el) {
+	$('option', $el).each(function(element) {
+	    $el.multiselect('select', $(this).val());
+	});
+    }
+    /**
+     * Deselects all the options
+     * @param {jQuery} $el
+     * @returns {undefined}
+     */
+    function multiselect_deselectAll($el) {
+	$('option', $el).each(function(element) {
+	    $el.multiselect('deselect', $(this).val());
+	});
+    }
+    /**
+     * Clears all the selected options
+     * @param {jQuery} $el
+     * @returns {undefined}
+     */
+    function multiselect_toggle($el, $btn) {
+	if (multiselect_selected($el)) {
+	    multiselect_deselectAll($el);
+	    $btn.text("Select All");
+	}
+	else {
+	    multiselect_selectAll($el);
+	    $btn.text("Deselect All");
+	}
+    }
+
     $("#model").multiselect();
+    $("#model").change(function(){
+	window.clearTimeout(h_runfilters);
+	h_runfilters = window.setTimeout(update_filter, 10);
+    })
+    $("#model-toggle").click(function(e){
+	e.preventDefault();
+	multiselect_toggle($("#model"), $(this));
+    });
+    multiselect_selectAll($("#model"));
+    $("#model-toggle").text("Deselect All");
 
     for(var i = 0; i < number_properties.length; i++){
 	var p = number_properties[i];
-	$("#"+p+"-slider").noUiSlider({
-	    range: [value_range[p][0], value_range[p][1]],
-	    start: [value_range[p][0], value_range[p][1]],
-	    serialization: {
-		resolution: 1,
-		to: [$("#"+p+"-min"), $("#"+p+"-max") ]
+	// $("#"+p+"-slider").noUiSlider({
+	//     range: [value_range[p][0], value_range[p][1]],
+	//     start: [value_range[p][0], value_range[p][1]],
+	//     serialization: {
+	// 	resolution: 1,
+	// 	to: [$("#"+p+"-min"), $("#"+p+"-max") ]
+	//     }
+	// });
+
+	var s = $("#"+p+"-slider");
+	s.slider({
+	    range: true,
+	    min: value_range[p][0],
+	    max: value_range[p][1],
+	    values: value_range[p],
+	    slide: function( event, ui ) {
+		id = $(this).attr('id');
+		$("#"+id.split("-")[0]+"-input").val(ui.values[0]+" - "+ui.values[1]);
+		window.clearTimeout(h_runfilters);
+		h_runfilters = window.setTimeout(update_filter, 10);
 	    }
 	});
+
+	$("#"+p+"-input").val(s.slider("values", 0) +" - " + s.slider("values", 1));
 
 	$("#"+p).click(function(){
 	    if(this.checked){
@@ -151,7 +223,7 @@ function get_filter(){
     for(var i = 0; i < number_properties.length; i++){
 	var p = number_properties[i];
 	if($("#"+p).prop("checked")){
-	    values[p] = $("#"+p+"-slider").val();
+	    values[p] = $("#"+p+"-slider").slider("values");
 	}
     };
     return values;
@@ -202,24 +274,26 @@ function diagram_update(data, columns){
 function function_clicked(display_f){
     if(current_diagram_f != display_f){
 	current_diagram_f = display_f;
-
-	d3.selectAll("#diagram").remove();
-	d3.select("#container")
-    	    .append("div")
-    	    .attr("id", "diagram");
+	init_diagram();
 	current_diagram_f("#diagram", subdata, subcolumns);
     }
 }
-
+function init_diagram(){
+    d3.selectAll("#diagram").remove();
+    d3.select("#container")
+    	.append("div")
+    	.attr("id", "diagram");
+}
 function show_filter(){
     $("#filterPanel").show("fast");
 }
 
 function filter_clicked(){
-    filter = get_filter();
-    subdata = filter_data(data, filter);
-    subcolumns = Object.keys(filter);
-    diagram_update(subdata, subcolumns);
+    // filter = get_filter();
+    // subdata = filter_data(data, filter);
+    // subcolumns = Object.keys(filter);
+    // diagram_update(subdata, subcolumns);
+    update_filter();
 }
 
 //hide filter panel
@@ -234,3 +308,32 @@ $(document).click(function(event) {
 $(function(){
     parse_data();
 });
+
+function table_click(){
+    init_diagram();
+    slick_table("#diagram", data, detailed_properties);
+}
+
+function matrix_click(){
+    init_diagram();
+    show_matrix("#diagram", data, properties);
+}
+
+function parrallel_click(){
+    init_diagram();
+    show_parallel("#diagram", data, properties);
+}
+
+function radar_click(){
+    var index = grid.getSelectedRows();
+    if(index.length == 0){
+	alert("please choose at least one camera from table")
+	return;
+    }
+    var items = [];
+    for(var i = 0; i < index.length; i++){
+	items.push(data[index[i]]);
+    }
+    init_diagram();
+    show_radar("#diagram", items, number_detailed_properties);
+}

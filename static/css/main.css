@@ -17,3 +17,9 @@
     width: auto;
     height: 100%;
 }
+
+input[type=text]{
+    border:0;
+    color:#f6931f;
+    font-weight:bold;
+}
