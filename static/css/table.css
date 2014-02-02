@@ -48,6 +48,51 @@ tbody tr:hover rect {
     fill: brown;
 }
 
+.slick-header-column.ui-state-default {
+    background:none ;
+    background-color: #505050 ;
+    color: #eeeeee;
+    border: none;
+    padding: 0;
+    text-shadow: none;
+    font-family: Arial, Verdana, Helvetica, sans-serif;
+    font-size: 13px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.slick-row.ui-widget-content, .slick-cell {
+    /* background: none; */
+    /* background-color: #eeeeee; */
+    /* color: #666666; */
+    border: none;
+    border-bottom: solid 0px #ffffff;
+    font-size: 10px;
+    height: 20px;
+    line-height: 10px;
+    /* padding: 0 5px; */
+}
+
+.slick-row:hover{
+    background-color: #F5F5DC;
+    /* font: 12px sans-serif; */
+}
+.slick-row rect {
+    fill: steelblue;
+}
+
+.slick-row:hover svg rect{
+    height: 16px;
+}
+
+.slick-row:hover rect {
+    fill: brown;
+}
+
+.slick-cell.active{
+    border: none;
+}
+
 .d3-tip {
   line-height: 1;
   font-weight: bold;
@@ -75,24 +120,4 @@ tbody tr:hover rect {
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
-}
-
-.slick-row{
-    color: steelblue;
-}
-
-.slick-row:hover{
-    color: brown;
-    font: 12px sans-serif;
-}
-.slick-row rect {
-    fill: steelblue;
-}
-
-.slick-row:hover svg {
-    height: 12px;
-}
-
-.slick-row:hover rect {
-    fill: brown;
 }

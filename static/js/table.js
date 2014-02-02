@@ -1,5 +1,17 @@
 var grid;
 var dataview;
+
+var attrcolors = {};
+var colorgen = d3.scale.category20();
+
+for(var i = 0; i < detailed_properties.length; i++){
+    var p = detailed_properties[i];
+    attrcolors[p.field] = colorgen(i);
+}
+function get_attr_color(f){
+    return attrcolors[f];
+}
+
 function show_table(data, columns){
     var table = d3.select("#diagram").append("table");
     var thead = table.append("thead");
@@ -56,15 +68,15 @@ function filter_table(shown_data){
 }
 
 function formatter(row, cell, value, columnDef, dataContext) {
+    var color = get_attr_color(columnDef.field);
     if(columnDef.field == "model" || columnDef.field == "date"){
-	return value;
+	return "<p style='color:" + color + "'>" + value + "</p>"
     }
     else{
-	var color = "blue";
 	var v = value/(value_range[columnDef.field][1]) * 80;
-	v = Math.round(v);
+	v = Math.round(v)
 	// return "<span class='percent-complete-bar' style='background:" + color + ";width:" + v + "%'></span>";
-	return "<svg width='80' height='12'><rect height='100%' width='"+ v + "'></rect></svg>";
+	return "<svg width='80' height='12'><rect height='100%' width='"+ v + "' style='fill:" + color +"'></rect></svg>";
     }
 
 }
@@ -82,7 +94,8 @@ function slick_table(id, data, columns){
 	enableAddRow: false,
 	enableCellNavigation: true,
 	fullWidthRows: true,
-	forceFitColumns: true
+	forceFitColumns: true,
+	rowHeight: 14
     };
 
     dataview = new Slick.Data.DataView();

@@ -10,19 +10,19 @@
 }
 
 #diagram {
-    width: 100%;
+    width: auto;
     height: 100%;
+}
+
+#parrallel{
+    width: 100%;
+    height: 300px;
 }
 #table{
     width: 100%;
     height: 300px;
-    overflow: hidden;
-    outline: 0px none;
     position: relative;
-}
-#parrallel{
-    width: 100%;
-    height: 300px;
+    top: 40px;
 }
 input[type=text]{
     border:0;

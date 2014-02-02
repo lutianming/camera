@@ -1,31 +1,3 @@
-var properties = ["model", "date", "max_reso", "low_reso", "pixels",
-		  "zoom_W", "zoom_T", "normal_focus", "macro_focus",
-		  "storage", "weight", "dimensions", "price"];
-var detailed_properties = [
-    {id:"model", name:"model", field:"model"},
-    {id: "date", name:"date", field:"date"},
-    {id: "max_reso", name:"max resolution", field:"max_reso"},
-    {id: "low_reso", name:"low resolution", field:"low_reso"},
-    {id: "pixels",name: "pixels",field: "pixels"},
-    {id: "zoom_W", name:"zoom Wide", field:"zoom_W"},
-    {id: "zoom_T", name:"zoom Tele", field:"zoom_T"},
-    {id: "normal_focus", name: "normal focus range", field: "normal_focus"},
-    {id: "macro_focus", name: "macro focus range", field: "macro_focus"},
-    {id: "storage", name: "storage", field: "storage"},
-    {id: "weight", name: "weight", field: "weight"},
-    {id: "dimensions", name: "dimensions", field: "dimensions"},
-    {id: "price", name: "price", field: "price"}
-];
-var number_detailed_properties = detailed_properties.slice(1);
-
-var number_properties = properties.slice(1);
-var bar_properties = properties.slice(2);
-
-var brand = ["Agfa", "Canon", "Casio", "Epson", "Fujifilm", "HP",
-	     "JVC", "Kodak", "Kyocera", "Leica","Nikon", "Olympus",
-	    "Panasonic", "Pentax", "Ricoh", "Samsung", "Sanyo", "Sony",
-	    "Toshiba"];
-
 var colors = {};
 var colorgen = d3.scale.category20();
 for(var i = 0; i < brand.length; i++){
