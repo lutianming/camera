@@ -1,10 +1,17 @@
 var pc;
 function show_parallel(id, data, columns){
-    d3.select(id).append('div')
+
+    d3.select("#widgets").append('div')
     .append("button")
     .text("Reset brush")
     .on("click", function(){
 	pc.brushReset();
+    });
+
+    $("#widgets").append("<div id='brand'></>");
+
+    $.each(brand, function(i, b) {
+    	$('#brand').append("<div class='item'><div class='color' style='background: " + colors[b] + "';></div><div class='key'>" + b + "</div></div>");
     });
 
     d3.selectAll(id)

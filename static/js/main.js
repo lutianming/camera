@@ -295,6 +295,9 @@ function parrallel_click(){
     init_diagram();
     d3.select("#diagram")
 	.append("div")
+	.attr("id", "widgets");
+    d3.select("#diagram")
+	.append("div")
 	.attr("id", "parrallel");
     d3.select("#diagram")
 	.append("div")

@@ -14,15 +14,24 @@
     height: 100%;
 }
 
+#widgets{
+    height: 50px;
+    width: auto;
+    position: absolute;
+}
 #parrallel{
     width: 100%;
     height: 300px;
+    float: none;
+    left: 10px;
+    top: 70px;
+    position: relative;
 }
 #table{
     width: 100%;
     height: 300px;
     position: relative;
-    top: 40px;
+    top: 80px;
 }
 input[type=text]{
     border:0;
