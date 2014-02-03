@@ -1,5 +1,6 @@
 var pc;
 function show_parallel(id, data, columns){
+    $(id).append('<div id="widgets"></div');
 
     d3.select("#widgets").append('div')
     .append("button")
@@ -8,15 +9,16 @@ function show_parallel(id, data, columns){
 	pc.brushReset();
     });
 
-    $("#widgets").append("<div id='brand'></>");
+    $("#widgets").append("<div id='legend'></>");
 
     $.each(brand, function(i, b) {
-    	$('#brand').append("<div class='item'><div class='color' style='background: " + colors[b] + "';></div><div class='key'>" + b + "</div></div>");
+    	$('#legend').append("<div class='item'><div class='color' style='background: " + colors[b] + "'></div><div class='key'>" + b + "</div></div>");
     });
 
-    d3.selectAll(id)
-    .attr("class", "parcoords");
-    pc = d3.parcoords()(id)
+    $(id).append("<div id='parcoords' class='parcoords'></div>");
+    // d3.selectAll(id)
+    // .attr("class", "parcoords");
+    pc = d3.parcoords()("#parcoords")
 	.data(data)
 	.color(get_color)
 	.mode("queue")

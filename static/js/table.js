@@ -2,7 +2,6 @@ var grid;
 var dataview;
 
 var attrcolors = {};
-var colorgen = d3.scale.category20();
 
 for(var i = 0; i < detailed_properties.length; i++){
     var p = detailed_properties[i];
@@ -133,6 +132,7 @@ function slick_table(id, data, columns){
 		pc.highlight(items);
 	    }
 	}
+	show_radar("#radar", items, number_detailed_properties);
     });
 
     grid.onCellChange.subscribe(function (e, args) {

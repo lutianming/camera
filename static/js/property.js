@@ -25,3 +25,5 @@ var brand = ["Agfa", "Canon", "Casio", "Epson", "Fujifilm", "HP",
 	     "JVC", "Kodak", "Kyocera", "Leica","Nikon", "Olympus",
 	    "Panasonic", "Pentax", "Ricoh", "Samsung", "Sanyo", "Sony",
 	    "Toshiba"];
+
+var colorgen = d3.scale.category20();

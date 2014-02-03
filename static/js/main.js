@@ -1,5 +1,4 @@
 var colors = {};
-var colorgen = d3.scale.category20();
 for(var i = 0; i < brand.length; i++){
     colors[brand[i]] = colorgen(i);
 }
@@ -50,10 +49,16 @@ function parse_data(){
 	}
 
 	load_filter();
-	current_diagram_f("#diagram", data, detailed_properties);
+//	current_diagram_f("#diagram", data, detailed_properties);
+	init_chart();
     });
 }
 
+function init_chart(){
+    slick_table("#table", data, detailed_properties);
+    show_parallel("#parallel", data, detailed_properties);
+    $("#radar").hide();
+}
 function load_data(data, columns){
     var table = d3.select("#diagram").append("table").attr("class", "table table-striped");
     var thead = table.append("thead");
@@ -282,8 +287,8 @@ $(function(){
 });
 
 function table_click(){
-    init_diagram();
-    slick_table("#diagram", data, detailed_properties);
+//    init_diagram();
+//    slick_table("#diagram", data, detailed_properties);
 }
 
 function matrix_click(){
@@ -292,18 +297,20 @@ function matrix_click(){
 }
 
 function parrallel_click(){
-    init_diagram();
-    d3.select("#diagram")
-	.append("div")
-	.attr("id", "widgets");
-    d3.select("#diagram")
-	.append("div")
-	.attr("id", "parrallel");
-    d3.select("#diagram")
-	.append("div")
-	.attr("id", "table");
-    slick_table("#table", data, detailed_properties);
-    show_parallel("#parrallel", data, detailed_properties);
+    // init_diagram();
+    // d3.select("#diagram")
+    // 	.append("div")
+    // 	.attr("id", "widgets");
+    // d3.select("#diagram")
+    // 	.append("div")
+    // 	.attr("id", "parrallel");
+    // d3.select("#diagram")
+    // 	.append("div")
+    // 	.attr("id", "table");
+    // slick_table("#table", data, detailed_properties);
+    // show_parallel("#parrallel", data, detailed_properties);
+    $("#radar").hide();
+    $("#parallel").show();
 }
 
 function radar_click(){
@@ -316,6 +323,11 @@ function radar_click(){
     for(var i = 0; i < index.length; i++){
 	items.push(data[index[i]]);
     }
-    init_diagram();
-    show_radar("#diagram", items, number_detailed_properties);
+    // init_diagram();
+    // d3.select("#diagram")
+    // 	.append("div")
+    // 	.attr("id", "widgets");
+    $("#parallel").hide();
+    $("#radar").show();
+    show_radar("#radar", items, number_detailed_properties);
 }

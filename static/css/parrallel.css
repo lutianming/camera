@@ -1,20 +1,20 @@
-#brand {
+#legend {
     clear: left;
     float: left;
     font-size: 11px;
     line-height: 1.6em;
     margin: 0 200px 0 12px;
 }
-#brand .item {
+#legend .item {
     float: left;
     margin-right: 10px;
 }
-#brand .color {
+#legend .color {
     height: 10px;
     opacity: 0.7;
     width: 10px;
 }
-#brand div {
+#legend div {
     display: inline-block;
     margin: 0 2px;
 }
