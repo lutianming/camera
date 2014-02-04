@@ -1,18 +1,19 @@
 var pc;
 function show_parallel(id, data, columns){
-    $(id).append('<div id="widgets"></div');
+    $(id).empty();
+    $(id).append('<div id="parallel-widgets" class="widgets"></div');
 
-    d3.select("#widgets").append('div')
+    d3.select("#parallel-widgets").append('div')
     .append("button")
     .text("Reset brush")
     .on("click", function(){
 	pc.brushReset();
     });
 
-    $("#widgets").append("<div id='legend'></>");
+    $("#parallel-widgets").append("<div class='legend'></>");
 
     $.each(brand, function(i, b) {
-    	$('#legend').append("<div class='item'><div class='color' style='background: " + colors[b] + "'></div><div class='key'>" + b + "</div></div>");
+    	$('.legend').append("<div class='item'><div class='color' style='background: " + colors[b] + "'></div><div class='key'>" + b + "</div></div>");
     });
 
     $(id).append("<div id='parcoords' class='parcoords'></div>");
@@ -32,7 +33,7 @@ function show_parallel(id, data, columns){
 	    dataview.setItems(d, ["model"]);
 	    dataview.endUpdate();
 	}
-    })
+    });
 }
 
 function filter_parallel(columns){

@@ -1,40 +1,58 @@
 function show_radar(id,data,columns){
-    var w = 300,
-    h = 300;
+    $(id).empty();
+    $(id).append("<div id='radar-widgets' class='widgets'></div>");
+    $(id).append("<div id='radar-photo' class='radar'></div>");
+    $(id).append("<div id='radar-physique' class='radar'></div>");
 
-    var d  = [];
+    $("#radar-widgets").append("<div class='legend'></>");
+    $.each(data, function(i, b) {
+    	$('.legend').append("<div class='item'><div class='color' style='background: " + colorgen(i) + "'></div><div class='key'>" + b.model + "</div></div>");
+    });
+
+    var physique_properties = ["storage", "weight", "dimensions", "price"];
+    var d_photo  = [];
+    var d_physique = [];
     for(var i=0; i<data.length; i++){
-	var obj = [];
+	var obj_a = [];
+	var obj_b = [];
 	var tmp = data[i];
 	for(var j=0; j<columns.length; j++){
 	    var col = columns[j]["field"];
 	    if(col == "date"){
 		continue;
+	    }else if(physique_properties.indexOf(col) > -1){
+		obj_a.push({
+		    axis: columns[j]["name"],
+		    value: tmp[col]/value_range[col][1],
+		    tooltip: tmp[col]
+		});
 	    }else{
-		obj.push({
+		obj_b.push({
 		    axis: columns[j]["name"],
 		    value: tmp[col]/value_range[col][1],
 		    tooltip: tmp[col]
 		});
 	    }
 	}
-	d.push(obj);
+	d_photo.push(obj_a);
+	d_physique.push(obj_b);
     }
 
+    var w = 300,
+    h = 300;
     var mycfg = {
 	color: colorgen,
 	maxValue: 1,
 	w: w,
 	h: h,
+	ExtraWidthX: 150,
+	ExtraWidthY: 150,
 	levels: 6,
 	tooltip: function(d){ return d.tooltip; }
     };
-    RadarChart.draw(id, d, mycfg);
+    RadarChart.draw("#radar-photo", d_photo, mycfg);
+    RadarChart.draw("#radar-physique", d_physique, mycfg);
 
-    $("#widgets").append("<div id='legend'></>");
-    $.each(data, function(i, b) {
-    	$('#legend').append("<div class='item'><div class='color' style='background: " + colorgen(i) + "'></div><div class='key'>" + b.model + "</div></div>");
-    });
 
     //legend
     // var svg = d3.select('#widgets')
