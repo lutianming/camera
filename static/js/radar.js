@@ -4,9 +4,19 @@ function show_radar(id,data,columns){
     $(id).append("<div id='radar-photo' class='radar'></div>");
     $(id).append("<div id='radar-physique' class='radar'></div>");
 
-    $("#radar-widgets").append("<div class='legend'></>");
-    $.each(data, function(i, b) {
-    	$('.legend').append("<div class='item'><div class='color' style='background: " + colorgen(i) + "'></div><div class='key'>" + b.model + "</div></div>");
+    $("#radar-widgets").append("<div id='radar-legend' class='legend'></>");
+    $.each(data, function(i, d) {
+    	// $('#radar-legend').append("<div class='item'><div class='color' style='background: " + colorgen(i) + "'></div><div class='key'>" + b.model + "</div></div>");
+
+	var tooltip = "";
+	for(var j=0; j<columns.length; j++){
+	    var c = columns[j];
+	    tooltip += c.name + ":" + d[c.field] + "<br />";
+	}
+    	$('#radar-legend').append("<div class='item'><div class='color' style='background: " + colorgen(i) + "'></div><button type='button' class='btn btn-xs' data-container='body' data-toggle='popover' data-placement='bottom' data-content='"+ tooltip +"'>" + d.model + "</button></div>");
+    });
+    $('button').popover({
+	html: true
     });
 
     var physique_properties = ["storage", "weight", "dimensions", "price"];

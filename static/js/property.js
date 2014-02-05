@@ -3,7 +3,7 @@ var properties = ["model", "date", "max_reso", "low_reso", "pixels",
 		  "storage", "weight", "dimensions", "price"];
 var detailed_properties = [
     {id:"model", name:"model", field:"model", minWidth: 140},
-    {id: "date", name:"date", field:"date", maxWidth: 40},
+    {id: "date", name:"release date", field:"date", maxWidth: 40},
     {id: "max_reso", name:"max resolution", field:"max_reso", minWidth: 80},
     {id: "low_reso", name:"low resolution", field:"low_reso", minWidth: 80},
     {id: "pixels",name: "pixels",field: "pixels", minWidth: 80},

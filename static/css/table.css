@@ -85,8 +85,12 @@ tbody tr:hover rect {
     height: 16px;
 }
 
-.slick-row:hover rect {
-    fill: brown;
+.slick-row:hover{
+    background-color: #505050 ;
+}
+
+.slick-cell.selected{
+    background-color: #505050 ;
 }
 
 .slick-cell.active{

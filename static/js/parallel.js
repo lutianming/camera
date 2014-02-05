@@ -10,10 +10,10 @@ function show_parallel(id, data, columns){
 	pc.brushReset();
     });
 
-    $("#parallel-widgets").append("<div class='legend'></>");
+    $("#parallel-widgets").append("<div id='parallel-legend' class='legend'></>");
 
     $.each(brand, function(i, b) {
-    	$('.legend').append("<div class='item'><div class='color' style='background: " + colors[b] + "'></div><div class='key'>" + b + "</div></div>");
+    	$('#parallel-legend').append("<div class='item'><div class='color' style='background: " + colors[b] + "'></div><div class='key'>" + b + "</div></div>");
     });
 
     $(id).append("<div id='parcoords' class='parcoords'></div>");

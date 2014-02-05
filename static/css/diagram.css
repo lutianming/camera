@@ -49,3 +49,7 @@
     top: 30px;
     bottom: -20px;
 }
+
+.tooltip-inner {
+    white-space:pre-wrap;
+}

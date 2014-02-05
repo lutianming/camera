@@ -45,21 +45,32 @@
 
   </head>
   <body>
-    <div class="navbar navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a href="#" class="brand">Camera Visualization</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-	      <li><a href="javascript:show_filter()">Filter</a></li>
-	      <li><a href="javascript:table_click()">Table</a></li>
-	      <li><a href="javascript:matrix_click()">Scatter plot matrix</a></li>
-	      <li><a href="javascript:parrallel_click()">Parallel coordinate</a></li>
-	      <li><a href="javascript:radar_click()">Radar chart</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+	<div class="navbar-header">
+          <a href="#" class="navbar-brand">Camera Visualization</a>
+	</div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active">
+	      <a href="#">Home</a>
+	    </li>
+	    <li>
+	      <a href="javascript:show_filter()">Filter</a>
+	    </li>
+	    <li>
+	      <a href="javascript:table_click()">Table</a>
+	    </li>
+	    <li><a href="javascript:matrix_click()">Scatter plot matrix</a>
+	    </li>
+	    <li>
+	      <a href="javascript:parrallel_click()">Parallel coordinate</a>
+	    </li>
+	    <li>
+	      <a href="javascript:radar_click()">Radar chart</a>
+	    </li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
     <div id="filterPanel">

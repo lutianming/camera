@@ -1,6 +1,6 @@
 var grid;
 var dataview;
-
+var selected_items = [];
 var attrcolors = {};
 
 for(var i = 0; i < detailed_properties.length; i++){
@@ -69,11 +69,11 @@ function filter_table(shown_data){
 function formatter(row, cell, value, columnDef, dataContext) {
     var color = get_attr_color(columnDef.field);
     if(columnDef.field == "model" || columnDef.field == "date"){
-	return "<p style='color:" + color + "'>" + value + "</p>"
+	return "<p style='color:" + color + "'>" + value + "</p>";
     }
     else{
 	var v = value/(value_range[columnDef.field][1]) * 80;
-	v = Math.round(v)
+	v = Math.round(v);
 	// return "<span class='percent-complete-bar' style='background:" + color + ";width:" + v + "%'></span>";
 	return "<svg width='80' height='12'><rect height='100%' width='"+ v + "' style='fill:" + color +"'></rect></svg>";
     }
@@ -117,22 +117,41 @@ function slick_table(id, data, columns){
 
 	grid.setSelectedRows(rows);
 	e.preventDefault();
+	return true;
     });
 
     grid.onSelectedRowsChanged.subscribe(function(e, args){
+	var index = grid.getSelectedRows();
 	if(pc){
-	    var index = grid.getSelectedRows();
+	    selected_items = [];
 	    if(index.length == 0){
 		pc.unhighlight();
 	    }else{
-		var items = [];
 		for(var i = 0; i<index.length; i++){
-		    items.push(data[index[i]]);
+		    selected_items.push(data[index[i]]);
 		}
-		pc.highlight(items);
+		pc.highlight(selected_items);
 	    }
 	}
-	show_radar("#radar", items, number_detailed_properties);
+	if(index.length > 0){
+	    show_radar("#radar", selected_items, number_detailed_properties);
+	}
+    });
+
+    grid.onMouseEnter.subscribe(function(e, args){
+    	var cell = grid.getCellFromEvent(e);
+    	var item = dataview.getItem(cell.row);
+    	pc.highlight(selected_items.concat([item]));
+    });
+    grid.onMouseLeave.subscribe(function(e, args){
+    	// var cell = grid.getCellFromEvent(e);
+    	// var item = dataview.getItem(cell.row);
+	if(selected_items.length == 0){
+	    pc.unhighlight();
+	}else{
+	    pc.highlight(selected_items);
+	}
+
     });
 
     grid.onCellChange.subscribe(function (e, args) {
@@ -153,7 +172,7 @@ function slick_table(id, data, columns){
 	var comparer = function(a, b) {
 	    var x = a[args.sortCol.field], y = b[args.sortCol.field];
 	    return (x == y ? 0 : (x > y ? 1 : -1));
-	}
+	};
 	dataview.sort(comparer, args.sortAsc);
     });
 
