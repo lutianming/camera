@@ -3,6 +3,7 @@ function show_radar(id,data,columns){
     $(id).append("<div id='radar-widgets' class='widgets'></div>");
     $(id).append("<div id='radar-photo' class='radar'></div>");
     $(id).append("<div id='radar-physique' class='radar'></div>");
+    $(id).append("<div id='sample-value' class='radar panel panel-primary'></div>");
 
     $("#radar-widgets").append("<div id='radar-legend' class='legend'></>");
     $.each(data, function(i, d) {

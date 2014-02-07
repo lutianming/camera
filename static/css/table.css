@@ -73,22 +73,20 @@ tbody tr:hover rect {
     /* padding: 0 5px; */
 }
 
-.slick-row:hover{
-    background-color: #F5F5DC;
-    /* font: 12px sans-serif; */
-}
+/* .slick-row:hover{ */
+/*     background-color: #F5F5DC; */
+/*     /\* font: 12px sans-serif; *\/ */
+/* } */
 .slick-row rect {
     fill: steelblue;
 }
-
-.slick-row:hover svg rect{
-    height: 16px;
-}
-
 .slick-row:hover{
     background-color: #505050 ;
 }
 
+.slick-cell:hover svg text{
+    display:inline;
+}
 .slick-cell.selected{
     background-color: #505050 ;
 }

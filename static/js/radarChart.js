@@ -131,9 +131,16 @@ var RadarChart = {
 		    }
 		    return str;
 		})
-		.style("fill", function(j, i){return cfg.color(series)})
+		.style("fill", function(j, i){return cfg.color(series);})
 		.style("fill-opacity", cfg.opacityArea)
 		.on('mouseover', function (d){
+		    $("#sample-value").empty();
+		    var tooltip = "";
+		    for(var i=0; i<y.length; i++){
+			tooltip += y[i].axis + ":&nbsp" + y[i].tooltip +"<br/>";
+		    }
+		    $("#sample-value").append("<p>"+tooltip+"</p>");
+
 		    z = "polygon."+d3.select(this).attr("class");
 		    g.selectAll("polygon")
 			.transition(200)

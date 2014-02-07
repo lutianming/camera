@@ -24,6 +24,12 @@
     margin: 0 2px;
 }
 
+#sample-value{
+    width: 180px;
+    height: 300px;
+    position: relative;
+    left: 20px;
+}
 /* .legend-vertical { */
 /*     font-size: 11px; */
 /*     line-height: 1.6em; */

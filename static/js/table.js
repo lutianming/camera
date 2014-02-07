@@ -69,13 +69,20 @@ function filter_table(shown_data){
 function formatter(row, cell, value, columnDef, dataContext) {
     var color = get_attr_color(columnDef.field);
     if(columnDef.field == "model" || columnDef.field == "date"){
-	return "<p style='color:" + color + "'>" + value + "</p>";
+	return "<p style='color:" + color + "' title='" + value +"'>" + value + "</p>";
     }
     else{
 	var v = value/(value_range[columnDef.field][1]) * 80;
 	v = Math.round(v);
-	// return "<span class='percent-complete-bar' style='background:" + color + ";width:" + v + "%'></span>";
-	return "<svg width='80' height='12'><rect height='100%' width='"+ v + "' style='fill:" + color +"'></rect></svg>";
+
+	// var svg = "<svg width='80' height='12' title='"+ value + "'> \
+	//     <rect height='100%' width='"+ v + "' style='fill:" + color +"'></rect> \
+	//     <text x='0' y='8' dy='.1em' style='display:none'>" + value +"</text> \
+	// </svg>";
+	var svg = "<svg width='80' height='12' title='"+ value + "'> \
+	    <rect height='100%' width='"+ v + "' style='fill:" + color +"'></rect> \
+	</svg>";
+	return svg;
     }
 
 }
@@ -181,6 +188,8 @@ function slick_table(id, data, columns){
     dataview.setFilterArgs(get_filter());
     dataview.setFilter(table_filter);
     dataview.endUpdate();
+
+    $(document).tooltip();
 }
 
 function table_filter(item, args){
