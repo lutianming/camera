@@ -1,4 +1,5 @@
 .legend {
+    width: 100%;
     clear: left;
     float: left;
     font-size: 11px;
@@ -24,11 +25,13 @@
     margin: 0 2px;
 }
 
+
 #sample-value{
     width: 180px;
     height: 300px;
     position: relative;
     left: 20px;
+    top: 60px;
 }
 /* .legend-vertical { */
 /*     font-size: 11px; */
@@ -52,8 +55,7 @@
 .radar{
     float: left;
     position: relative;
-    top: 30px;
-    bottom: -20px;
+    top: 20px;
 }
 
 .tooltip-inner {

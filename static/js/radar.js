@@ -6,13 +6,14 @@ function show_radar(id,data,columns){
     $(id).append("<div id='sample-value' class='radar panel panel-primary'></div>");
 
     $("#radar-widgets").append("<div id='radar-legend' class='legend'></>");
+    var colorgen = d3.scale.category10();
     $.each(data, function(i, d) {
     	// $('#radar-legend').append("<div class='item'><div class='color' style='background: " + colorgen(i) + "'></div><div class='key'>" + b.model + "</div></div>");
 
 	var tooltip = "";
 	for(var j=0; j<columns.length; j++){
 	    var c = columns[j];
-	    tooltip += c.name + ":" + d[c.field] + "<br />";
+	    tooltip += c.name + ":" + d[c.field] + c.unit + "<br />";
 	}
     	$('#radar-legend').append("<div class='item'><div class='color' style='background: " + colorgen(i) + "'></div><button type='button' class='btn btn-xs' data-container='body' data-toggle='popover' data-placement='bottom' data-content='"+ tooltip +"'>" + d.model + "</button></div>");
     });
@@ -28,20 +29,21 @@ function show_radar(id,data,columns){
 	var obj_b = [];
 	var tmp = data[i];
 	for(var j=0; j<columns.length; j++){
-	    var col = columns[j]["field"];
-	    if(col == "date"){
+	    var col = columns[j];
+	    var field = col["field"];
+	    if(field == "date"){
 		continue;
-	    }else if(physique_properties.indexOf(col) > -1){
+	    }else if(physique_properties.indexOf(field) > -1){
 		obj_a.push({
-		    axis: columns[j]["name"],
-		    value: tmp[col]/value_range[col][1],
-		    tooltip: tmp[col]
+		    axis: col["name"],
+		    value: tmp[field]/value_range[field][1],
+		    tooltip: "" + tmp[field] + col["unit"]
 		});
 	    }else{
 		obj_b.push({
-		    axis: columns[j]["name"],
-		    value: tmp[col]/value_range[col][1],
-		    tooltip: tmp[col]
+		    axis: col["name"],
+		    value: tmp[field]/value_range[field][1],
+		    tooltip: "" + tmp[field] + col["unit"]
 		});
 	    }
 	}
@@ -110,5 +112,4 @@ function show_radar(id,data,columns){
     // 	.attr("font-size", "11px")
     // 	.attr("fill", "#737373")
     // 	.text(function(d) { return d.model; });
-
 }

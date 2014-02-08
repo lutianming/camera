@@ -11,49 +11,49 @@ function get_attr_color(f){
     return attrcolors[f];
 }
 
-function show_table(data, columns){
-    var table = d3.select("#diagram").append("table");
-    var thead = table.append("thead");
-    var tbody = table.append("tbody");
+// function show_table(data, columns){
+//     var table = d3.select("#diagram").append("table");
+//     var thead = table.append("thead");
+//     var tbody = table.append("tbody");
 
-    thead.append("tr")
-	.selectAll("th")
-	.data(columns)
-	.enter()
-	.append("th")
-	.text(function(d) { return d; });
+//     thead.append("tr")
+// 	.selectAll("th")
+// 	.data(columns)
+// 	.enter()
+// 	.append("th")
+// 	.text(function(d) { return d; });
 
-    d3.selectAll("thead th").data(columns).on("click", function(k) {
-	rows.sort(function(a, b) { return b[k] - a[k]; });
-    });
+//     d3.selectAll("thead th").data(columns).on("click", function(k) {
+// 	rows.sort(function(a, b) { return b[k] - a[k]; });
+//     });
 
-    var rows = tbody
-	.selectAll("tr")
-	.data(data)
-	.enter()
-	.append("tr")
-	.attr("id", function(d){ return d["model"]; });
+//     var rows = tbody
+// 	.selectAll("tr")
+// 	.data(data)
+// 	.enter()
+// 	.append("tr")
+// 	.attr("id", function(d){ return d["model"]; });
 
-    rows.selectAll("td")
-	.data(function(row) { return columns.map(function(column){
-	    return {column: column, value: row[column]};
-	});})
-	.enter().append("td")
-	.each(function(d){
-	    var header = d3.select(this);
-	    if (bar_properties.indexOf(d.column) > -1){
-		header.append("svg")
-		    .attr("width", 80)
-		    .attr("height", 6)
-		    .append("rect")
-		    .attr("height", "100%")
-		    .attr("width", function(d) { return d.value / value_range[d.column][1] * 80; });
-	    }
-	    else{
-		header.text(function(d) { return d.value;});
-	    }
-	});
-}
+//     rows.selectAll("td")
+// 	.data(function(row) { return columns.map(function(column){
+// 	    return {column: column, value: row[column]};
+// 	});})
+// 	.enter().append("td")
+// 	.each(function(d){
+// 	    var header = d3.select(this);
+// 	    if (bar_properties.indexOf(d.column) > -1){
+// 		header.append("svg")
+// 		    .attr("width", 80)
+// 		    .attr("height", 6)
+// 		    .append("rect")
+// 		    .attr("height", "100%")
+// 		    .attr("width", function(d) { return d.value / value_range[d.column][1] * 80; });
+// 	    }
+// 	    else{
+// 		header.text(function(d) { return d.value;});
+// 	    }
+// 	});
+// }
 
 function filter_table(shown_data){
     var rows = d3.selectAll("tbody tr").each(function(d, i){
@@ -68,8 +68,10 @@ function filter_table(shown_data){
 
 function formatter(row, cell, value, columnDef, dataContext) {
     var color = get_attr_color(columnDef.field);
+    var title = value + columnDef.unit;
+
     if(columnDef.field == "model" || columnDef.field == "date"){
-	return "<p style='color:" + color + "' title='" + value +"'>" + value + "</p>";
+	return "<p style='color:" + color + "' title='" + title +"'>" + value + "</p>";
     }
     else{
 	var v = value/(value_range[columnDef.field][1]) * 80;
@@ -79,12 +81,11 @@ function formatter(row, cell, value, columnDef, dataContext) {
 	//     <rect height='100%' width='"+ v + "' style='fill:" + color +"'></rect> \
 	//     <text x='0' y='8' dy='.1em' style='display:none'>" + value +"</text> \
 	// </svg>";
-	var svg = "<svg width='80' height='12' title='"+ value + "'> \
+	var svg = "<svg width='80' height='8' title='"+ title + "'> \
 	    <rect height='100%' width='"+ v + "' style='fill:" + color +"'></rect> \
 	</svg>";
 	return svg;
     }
-
 }
 
 function slick_table(id, data, columns){
@@ -101,7 +102,7 @@ function slick_table(id, data, columns){
 	enableCellNavigation: true,
 	fullWidthRows: true,
 	forceFitColumns: true,
-	rowHeight: 14
+	rowHeight: 10
     };
 
     dataview = new Slick.Data.DataView();

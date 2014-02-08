@@ -137,7 +137,8 @@ var RadarChart = {
 		    $("#sample-value").empty();
 		    var tooltip = "";
 		    for(var i=0; i<y.length; i++){
-			tooltip += y[i].axis + ":&nbsp" + y[i].tooltip +"<br/>";
+			tooltip += y[i].axis + ":&nbsp" +
+			    y[i].tooltip + "<br/>";
 		    }
 		    $("#sample-value").append("<p>"+tooltip+"</p>");
 

@@ -1,3 +1,19 @@
+.navbar{
+    height: 35px;
+    min-height: 30px;
+    margin-bottom: 5px;
+}
+.navbar-header a{
+    line-height: 30px;
+    height: 30px;
+    padding-top: 0;
+}
+.navbar-nav li a {
+    line-height: 30px;
+    height: 30px;
+    padding-top: 0;
+}
+
 #filterPanel {
     position: absolute;
     top: 0;
@@ -8,6 +24,7 @@
     z-index: 5000;
     display: none;
 }
+
 
 #diagram {
     width: auto;
@@ -22,17 +39,16 @@
 
 #parallel{
     width: 100%;
-    height: 300px;
     float: none;
     left: 10px;
     position: relative;
 }
 #parcoords{
     width: 100%;
-    height: 300px;
+    height: 330px;
     float: none;
     left: 10px;
-    top: 70px;
+    top: 50px;
     position: relative;
 }
 
@@ -47,9 +63,10 @@
 #table{
     width: 100%;
     height: 300px;
-    position: relative;
-    top: 80px;
+    position: absolute;
+    top: 420px;
 }
+
 input[type=text]{
     border:0;
     color:#f6931f;

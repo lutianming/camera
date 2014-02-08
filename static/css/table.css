@@ -68,8 +68,8 @@ tbody tr:hover rect {
     border: none;
     border-bottom: solid 0px #ffffff;
     font-size: 10px;
-    height: 20px;
-    line-height: 10px;
+    height: 10px;
+    line-height: 5px;
     /* padding: 0 5px; */
 }
 
