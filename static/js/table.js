@@ -220,8 +220,3 @@ function table_filter(item, args){
     }
     return re;
 }
-
-function update_filter(){
-    dataview.setFilterArgs(get_filter());
-    dataview.refresh();
-}

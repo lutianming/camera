@@ -49,7 +49,7 @@ function parse_data(){
 	}
 
 	load_filter();
-//	current_diagram_f("#diagram", data, detailed_properties);
+	//	current_diagram_f("#diagram", data, detailed_properties);
 	init_chart();
     });
 }
@@ -71,36 +71,71 @@ function load_data(data, columns){
         .data(columns)
         .enter()
         .append("th")
-            .text(function(column) { return column; });
+        .text(function(column) { return column; });
 
     // create a row for each object in the data
     var rows = tbody.selectAll("tr")
-        .data(data)
-        .enter()
-        .append("tr");
+            .data(data)
+            .enter()
+            .append("tr");
 
     // create a cell in each row for each column
     var cells = rows.selectAll("td")
-        .data(function(row) {
-            return columns.map(function(column) {
-                return {column: column, value: row[column]};
-            });
-        })
-        .enter()
-        .append("td")
+            .data(function(row) {
+		return columns.map(function(column) {
+                    return {column: column, value: row[column]};
+		});
+            })
+            .enter()
+            .append("td")
             .text(function(d) { return d.value; });
     return table;
 }
 
+/**
+ * Selects all the options
+ * @param {jQuery} $el
+ * @returns {undefined}
+ */
+function multiselect_selectAll($el) {
+    $('option', $el).each(function(element) {
+	$el.multiselect('select', $(this).val());
+    });
+}
+/**
+ * Deselects all the options
+ * @param {jQuery} $el
+ * @returns {undefined}
+ */
+function multiselect_deselectAll($el) {
+    $('option', $el).each(function(element) {
+	$el.multiselect('deselect', $(this).val());
+    });
+}
+/**
+ * Clears all the selected options
+ * @param {jQuery} $el
+ * @returns {undefined}
+ */
+function multiselect_toggle($el, $btn) {
+    if (multiselect_selected($el)) {
+	multiselect_deselectAll($el);
+	$btn.text("Select All");
+    }
+    else {
+	multiselect_selectAll($el);
+	$btn.text("Deselect All");
+    }
+}
+var h_runfilters = null;
 function load_filter(){
     d3.select("#model").selectAll("option")
-    .data(brand)
-    .enter()
-    .append("option")
-    .text(function(d) {return d;})
-    .attr("value", function(d){ return d;});
+	.data(brand)
+	.enter()
+	.append("option")
+	.text(function(d) {return d;})
+	.attr("value", function(d){ return d;});
 
-    var h_runfilters = null;
     function multiselect_selected($el) {
 	var ret = true;
 	$('option', $el).each(function(element) {
@@ -110,41 +145,7 @@ function load_filter(){
 	});
 	return ret;
     }
-    /**
-     * Selects all the options
-     * @param {jQuery} $el
-     * @returns {undefined}
-     */
-    function multiselect_selectAll($el) {
-	$('option', $el).each(function(element) {
-	    $el.multiselect('select', $(this).val());
-	});
-    }
-    /**
-     * Deselects all the options
-     * @param {jQuery} $el
-     * @returns {undefined}
-     */
-    function multiselect_deselectAll($el) {
-	$('option', $el).each(function(element) {
-	    $el.multiselect('deselect', $(this).val());
-	});
-    }
-    /**
-     * Clears all the selected options
-     * @param {jQuery} $el
-     * @returns {undefined}
-     */
-    function multiselect_toggle($el, $btn) {
-	if (multiselect_selected($el)) {
-	    multiselect_deselectAll($el);
-	    $btn.text("Select All");
-	}
-	else {
-	    multiselect_selectAll($el);
-	    $btn.text("Deselect All");
-	}
-    }
+
 
     $("#model").multiselect({
 	buttonClass: 'btn btn-xs'
@@ -209,36 +210,36 @@ function get_filter(){
     return values;
 }
 
-function filter_data(data, filter){
-    var result = data.filter(function(d){
-	var re = true;
-	for(var p in filter){
-	    var value = filter[p];
-	    if(p == "model"){
-		var contained = false;
-		for(var i = 0; i < value.length; i++){
-		    var brand = value[i];
-		    if(d[p].indexOf(brand) != -1){
-			contained = true;
-			break;
-		    }
-		}
-		if(!contained){
-		    re = false;
-		    break;
-		}
-	    }
-	    else{
-		if(d[p] < value[0] || d[p] > value[1]){
-		    re = false;
-		    break;
-		}
-	    }
-	}
-	return re;
-    });
-    return result;
-}
+// function filter_data(data, filter){
+//     var result = data.filter(function(d){
+// 	var re = true;
+// 	for(var p in filter){
+// 	    var value = filter[p];
+// 	    if(p == "model"){
+// 		var contained = false;
+// 		for(var i = 0; i < value.length; i++){
+// 		    var brand = value[i];
+// 		    if(d[p].indexOf(brand) != -1){
+// 			contained = true;
+// 			break;
+// 		    }
+// 		}
+// 		if(!contained){
+// 		    re = false;
+// 		    break;
+// 		}
+// 	    }
+// 	    else{
+// 		if(d[p] < value[0] || d[p] > value[1]){
+// 		    re = false;
+// 		    break;
+// 		}
+// 	    }
+// 	}
+// 	return re;
+//     });
+//     return result;
+// }
 
 function diagram_update(data, columns){
     if(current_diagram_f == show_table){
@@ -264,25 +265,36 @@ function init_diagram(){
     	.append("div")
     	.attr("id", "diagram");
 }
-function show_filter(){
-    $("#filterPanel").show("fast");
+function toggle_filter(){
+    $("#filterPanel").toggle();
 }
 
-function filter_clicked(){
+function filter_reset(){
     // filter = get_filter();
     // subdata = filter_data(data, filter);
     // subcolumns = Object.keys(filter);
     // diagram_update(subdata, subcolumns);
-    update_filter();
+    multiselect_selectAll($("#model"));
+    $("#model-toggle").text("Deselect All");
+
+    for(var i = 0; i < number_properties.length; i++){
+	var p = number_properties[i];
+
+	var s = $("#"+p+"-slider");
+	s.slider("values", value_range[p]);
+	$("#"+p+"-input").val(s.slider("values", 0) +" - " + s.slider("values", 1));
+    }
+    window.clearTimeout(h_runfilters);
+    h_runfilters = window.setTimeout(update_filter, 10);
 }
 
 //hide filter panel
 $(document).click(function(event) {
-    if($(event.target).parents().index($('#filterPanel')) == -1) {
-        if($('#filterPanel').is(":visible")) {
-            $('#filterPanel').hide();
-        }
-    }
+    // if($(event.target).parents().index($('#filterPanel')) == -1) {
+    //     if($('#filterPanel').is(":visible")) {
+    //         $('#filterPanel').hide();
+    //     }
+    // }
 });
 
 $(function(){
@@ -299,8 +311,8 @@ function table_click(){
     $("#radar").hide();
     $("#parallel").hide();
     expand_table();
-//    init_diagram();
-//    slick_table("#diagram", data, detailed_properties);
+    //    init_diagram();
+    //    slick_table("#diagram", data, detailed_properties);
 }
 
 function matrix_click(){
@@ -344,4 +356,16 @@ function radar_click(){
     $("#radar").show();
     show_radar("#radar", items, number_detailed_properties);
     fold_table();
+}
+
+function update_filter(){
+    dataview.setFilterArgs(get_filter());
+    dataview.refresh();
+    var length = dataview.getLength();
+    subdata = [];
+    for(var i = 0; i<length; i++){
+	subdata.push(dataview.getItem(i));
+    }
+    pc.data(subdata);
+    pc.render();
 }
