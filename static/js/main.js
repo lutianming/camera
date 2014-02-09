@@ -58,6 +58,7 @@ function init_chart(){
     slick_table("#table", data, detailed_properties);
     show_parallel("#parallel", data, detailed_properties);
     $("#radar").hide();
+    $("#parallel").hide();
 }
 function load_data(data, columns){
     var table = d3.select("#diagram").append("table").attr("class", "table table-striped");
@@ -145,11 +146,13 @@ function load_filter(){
 	}
     }
 
-    $("#model").multiselect();
+    $("#model").multiselect({
+	buttonClass: 'btn btn-xs'
+    });
     $("#model").change(function(){
 	window.clearTimeout(h_runfilters);
 	h_runfilters = window.setTimeout(update_filter, 10);
-    })
+    });
     $("#model-toggle").click(function(e){
 	e.preventDefault();
 	multiselect_toggle($("#model"), $(this));
@@ -286,14 +289,23 @@ $(function(){
     parse_data();
 });
 
+function expand_table(){
+    $("#table").css({"top":"40px", "height": "100%"});
+}
+function fold_table(){
+    $("#table").css({"top":"420px", "height": "300px"});
+}
 function table_click(){
+    $("#radar").hide();
+    $("#parallel").hide();
+    expand_table();
 //    init_diagram();
 //    slick_table("#diagram", data, detailed_properties);
 }
 
 function matrix_click(){
-    init_diagram();
-    show_matrix("#diagram", data.slice(0,50), properties);
+    // init_diagram();
+    // show_matrix("#diagram", data.slice(0,50), properties);
 }
 
 function parrallel_click(){
@@ -311,12 +323,13 @@ function parrallel_click(){
     // show_parallel("#parrallel", data, detailed_properties);
     $("#radar").hide();
     $("#parallel").show();
+    fold_table();
 }
 
 function radar_click(){
     var index = grid.getSelectedRows();
     if(index.length == 0){
-	alert("please choose at least one camera from table")
+	alert("please choose at least one camera from table");
 	return;
     }
     var items = [];
@@ -330,4 +343,5 @@ function radar_click(){
     $("#parallel").hide();
     $("#radar").show();
     show_radar("#radar", items, number_detailed_properties);
+    fold_table();
 }

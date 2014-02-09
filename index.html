@@ -61,8 +61,8 @@
 	    <li>
 	      <a href="javascript:table_click()">Table</a>
 	    </li>
-	    <li><a href="javascript:matrix_click()">Scatter plot matrix</a>
-	    </li>
+<!--	    <li><a href="javascript:matrix_click()">Scatter plot matrix</a>
+	    </li>-->
 	    <li>
 	      <a href="javascript:parrallel_click()">Parallel coordinate</a>
 	    </li>
@@ -74,11 +74,11 @@
       </div>
     </div>
     <div id="filterPanel">
-      <button class="btn btn-primary" onclick="filter_clicked()">filter</button>
+      <button class="btn btn-primary btn-xs" onclick="filter_reset()">Reset</button>
       <div class="btn-group">
 	<select id="model" multiple="multiple">
 	</select>
-	<button id="model-toggle" class="btn">Select All</button>
+	<button id="model-toggle" class="btn btn-xs">Select All</button>
       </div>
 
       <div>
