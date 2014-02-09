@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><title>(Class Project: Camera Visualization)</title>
+<meta name="author" content="(LU Tianming)"/>
+<link rel="stylesheet" href="http://lutianming.github.io/camera/reveal/css/reveal.min.css">
+<link rel="stylesheet" href="http://lutianming.github.io/camera/reveal/css/theme/default.css" id="theme">
+
+<link rel="stylesheet" href="http://lutianming.github.io/camera/reveal/css/print/pdf.css" type="text/css" media="print">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Class Project: Camera Visualization</h1>
+<h2>LU Tianming</h2>
+<h2><a href="mailto:lutianming1005@gmail.com">lutianming1005@gmail.com</a></h2>
+<h2></h2></section>
+<section id="sec-1" >
+
+<h2><span class="section-number-2">1</span> Project description</h2>
+<p>
+This project aims to provide a intuitive visualization tool to compare different cameras with different properties and help users find the most suitable one.
+</p>
+</section>
+<section id="sec-2" >
+
+<h2><span class="section-number-2">2</span> Data set</h2>
+<ul class="org-ul">
+<li>Diffirent cameras with 13 different properties
+</li>
+<li>1038 cases
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-2-1" >
+
+<h3><span class="section-number-3">2.1</span> The dimensions &amp; their properties</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">Property</td>
+<td class="left">Type</td>
+<td class="left">Dimensions</td>
+<td class="left">Unit</td>
+</tr>
+
+<tr>
+<td class="left">Model</td>
+<td class="left">nominal</td>
+<td class="left">--</td>
+<td class="left">--</td>
+</tr>
+
+<tr>
+<td class="left">Release date</td>
+<td class="left">ordinal</td>
+<td class="left">1994 - 2007</td>
+<td class="left">--</td>
+</tr>
+
+<tr>
+<td class="left">Max resolution</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 5616</td>
+<td class="left">pixels</td>
+</tr>
+
+<tr>
+<td class="left">Low resolution</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 4992</td>
+<td class="left">pixels</td>
+</tr>
+
+<tr>
+<td class="left">Effective pixel</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 21</td>
+<td class="left">megapixels</td>
+</tr>
+
+<tr>
+<td class="left">Zoom wide(W)</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 52</td>
+<td class="left">mm</td>
+</tr>
+
+<tr>
+<td class="left">Zoom tele(T)</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 518</td>
+<td class="left">mm</td>
+</tr>
+
+<tr>
+<td class="left">Normal focus range</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 120</td>
+<td class="left">mm</td>
+</tr>
+
+<tr>
+<td class="left">Macro focus range</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 85</td>
+<td class="left">mm</td>
+</tr>
+
+<tr>
+<td class="left">Storage Included</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 450</td>
+<td class="left">mb</td>
+</tr>
+
+<tr>
+<td class="left">Weight(Inc battery)</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 1860</td>
+<td class="left">g</td>
+</tr>
+
+<tr>
+<td class="left">Dimensions</td>
+<td class="left">quantitative</td>
+<td class="left">0 - 240</td>
+<td class="left">mm</td>
+</tr>
+
+<tr>
+<td class="left">Price</td>
+<td class="left">quantitative</td>
+<td class="left">14 - 7999</td>
+<td class="left">$</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sec-3" >
+
+<h2><span class="section-number-2">3</span> Target users</h2>
+<ul class="org-ul">
+<li>Customers who want to compare characteristics of camera to decide which one to buy
+</li>
+<li>Analysts who want to compare cameras for specific scenarios
+</li>
+</ul>
+<aside class="notes">
+<p>
+which camera is good for scenery? which one is good for daily use? etc.
+The analyst can be a editor of a camera website who needs to write a article about different cameras
+</p>
+</aside>
+</section>
+<section>
+<section id="sec-3-1" >
+
+<h3><span class="section-number-3">3.1</span> Things they want to understand</h3>
+<ul class="org-ul">
+<li>Which camera is the best to meet their needs
+
+<p>
+Does one property of the camera meets the requirement
+</p>
+</li>
+
+<li>The advantages and disadvantages of different cameras
+
+<p>
+Is this camera better for taking scenery or human face photo
+</p>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-3-2" >
+
+<h3><span class="section-number-3">3.2</span> User experience</h3>
+<ul class="org-ul">
+<li>With data
+
+<p>
+Users need to have some basic knowledge of camera properties
+</p>
+</li>
+
+<li>With visualization tools
+
+<p>
+They don't need to have any experience
+</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="sec-4" >
+
+<h2><span class="section-number-2">4</span> Representative tasks</h2>
+</section>
+<section>
+<section id="sec-4-1" >
+
+<h3><span class="section-number-3">4.1</span> Things a user potentially want to understand</h3>
+<ul class="org-ul">
+<li>The photography quality of camera
+
+<p>
+Does the camera has enough pixels? Is it good for taking scenery photo
+</p>
+</li>
+<li>The physical quality of camera
+
+<p>
+Is the camera too heavy? Does it has enough storage space?
+</p>
+</li>
+<li>The quality/price ratio
+
+<p>
+Under the same price range, which camera has the better quality?
+</p>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-4-2" >
+
+<h3><span class="section-number-3">4.2</span> What questions helped guide your design?</h3>
+<ul class="org-ul">
+<li>How many data cases? How many variables?
+</li>
+<li>How can users find the camera they want quickly?
+
+<p>
+The main purpose of our project
+</p>
+</li>
+
+<li>How can users compare cameras easily?
+
+<p>
+When choosing cameras, it is unavoidable that users finally want to compare several cameras
+</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="sec-5" >
+
+<h2><span class="section-number-2">5</span> Chosen design</h2>
+</section>
+<section>
+<section id="sec-5-1" >
+
+<h3><span class="section-number-3">5.1</span> What representations did you choose to use?</h3>
+<ul class="org-ul">
+<li>Table chart
+
+<p>
+colorful bar for quantitative variables
+</p>
+</li>
+
+<li>Parallel coordinate
+
+<p>
+view the whole context
+</p>
+</li>
+
+<li>Radar chart(star plot)
+
+<p>
+view the detail
+</p>
+</li>
+</ul>
+
+<aside class="notes">
+<p>
+It is a traditional way to list all the dataset. And we use different color to represent different variable and use a bar instead of number to show the quantitative variable.
+</p>
+
+<p>
+Parallel coordinate is a good way to represent hypervariate data. Since the size our data is about 1000 cases so it won't be too large to make parallel coordinate hard to view. What's more, parallel coordinate provides us a way to view the whole <b>context</b> so that it become easier to understand the whole dataset and we can find the relationship between those variables.
+</p>
+
+<p>
+We use radar chart to show camera properties in detail and make comparison. Radar chart only works good when there are only several data cases. Since it is common that finally there will be 2 or 3 cameras that users are interested in and they hesitate to choose the right one, radar chart just meet the requirement well. Users can use the radar chart to discover the advantage and disadvantage among several cameras easily.
+</p>
+</aside>
+</section>
+</section>
+<section>
+<section id="sec-5-2" >
+
+<h3><span class="section-number-3">5.2</span> Interaction that the design handles</h3>
+<ul class="org-ul">
+<li>Select
+</li>
+<li>Sort
+</li>
+<li>Reconfigure
+</li>
+<li>Connect
+</li>
+<li>Brushing
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-5-3" >
+
+<h3><span class="section-number-3">5.3</span> Relationship between design decisions and users, data, and tasks</h3>
+<ul class="org-ul">
+<li>Users: interaction
+</li>
+<li>Data: hypervariate, context &amp; focus
+</li>
+<li>Tasks: finding the right camera step by step
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-5-4" >
+
+<h3><span class="section-number-3">5.4</span> The part that the design do well</h3>
+<ul class="org-ul">
+<li>Show a general data context and relationship among variables
+</li>
+<li>Find the camera that meets specific query requirement easily
+</li>
+<li>Compare small amount of cameras in detail
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-5-5" >
+
+<h3><span class="section-number-3">5.5</span> The part That the design does not do well</h3>
+<p>
+Radar chart only works good with small amount of cases. It become less useful with more cases.
+</p>
+
+<p>
+Sometimes cameras may have very similar variables. In this case,  it become a little bit difficult to compare them with Radar Chart.
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="http://lutianming.github.io/camera/reveal/lib/js/head.min.js"></script>
+<script src="http://lutianming.github.io/camera/reveal/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: false,
+        			center: true,
+        			rollingLinks: false,
+        			keyboard: true,
+        			overview: true,
+        			 // slide width
+        			 // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: 'http://lutianming.github.io/camera/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        				{ src: 'http://lutianming.github.io/camera/reveal/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        				{ src: 'http://lutianming.github.io/camera/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        				{ src: 'http://lutianming.github.io/camera/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        				{ src: 'http://lutianming.github.io/camera/reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        				{ src: 'http://lutianming.github.io/camera/reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://lutianming.github.io/camera/reveal/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://lutianming.github.io/camera/reveal/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        			]
+        		});
+</script>
+</body>
+</html>
