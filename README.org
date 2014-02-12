@@ -1,0 +1,217 @@
+#+title: Class Project: Camera Visualization
+#+author: LU Tianming, Nathali Paz del Castillo, Seddik Mouhcine
+#+options:
+#+LATEX_HEADER: \usepackage{indentfirst}
+
+\newpage
+* Project description
+  This project aims to provide a intuitive visualization tool to compare different cameras with different properties and help users find the most suitable one.
+
+  The project page: http://lutianming.github.io/camera
+
+  The presentation slide: http://lutianming.github.io/camera/slide.html
+
+* Dataset
+
+  The Camera's Datasets is proposed in the courses website.
+
+  The Dataset is available at this address:
+  http://www.infres.enst.fr/~eagan/class/as2013/inf229/data/Camera.csv
+
+** Format
+
+   The dataset represents 13 different properties of camera.
+
+   There are 1038 data cases in the dataset totally.
+
+   The dataset is a csv file. The total size of the dataset is 87.1Kb.
+
+   The first two line of the original data includes one line of data property name and one line of preprety format(String, Double, etc). When handling the data file, we remove the second of property format to satisify the requirement of library function. And we rename some property names so that they will be shorter and easier to reach when programming.
+
+** Dataset detail(dimensions, their properties)
+
+   In the table(table [[table:detail]]), we have a quick description of each properties.
+
+   #+caption: property description
+   #+name: table:detail
+| Property            | Type         | Dimensions  | Unit      |
+| Model               | nominal      | --          | --        |
+| Release date        | ordinal      | 1994 - 2007 | --        |
+| Max resolution      | quantitative | 0 - 5616    | pixel     |
+| Low resolution      | quantitative | 0 - 4992    | pixel     |
+| Effective pixel     | quantitative | 0 - 21      | megapixel |
+| Zoom wide(W)        | quantitative | 0 - 52      | mm        |
+| Zoom tele(T)        | quantitative | 0 - 518     | mm        |
+| Normal focus range  | quantitative | 0 - 120     | mm        |
+| Macro focus range   | quantitative | 0 - 85      | mm        |
+| Storage Included    | quantitative | 0 - 450     | mb        |
+| Weight(Inc battery) | quantitative | 0 - 1860    | g         |
+| Dimensions          | quantitative | 0 - 240     | mm        |
+| Price               | quantitative | 14 - 7999   | $         |
+
+* Target users
+  + Customers who want to compare characteristics of camera to decide which one to buy
+  + Analysts who want to compare cameras for specific scenarios
+    which camera is good for scenery? which one is good for daily use? etc.
+    The analyst can be a editor of a camera website who needs to write a article about different cameras
+
+** Things the users try to understand from the data
+   + Which camera is the best to meet their needs
+
+     Does one property of the camera meets the requirement.
+   + The advantages and disadvantages of different cameras
+
+     Is this camera better for taking scenery or human face photo.
+
+** User experience
+   + With data
+
+   Users need to have some basic knowledge of camera properties so that they can know what's the range of a property that is good for them
+
+   + With visualization tools
+
+   They don’t need to have any experience with this type of visualization tools. But for expert users, they may have some experience with visualization tools.
+
+   Our design should be intuitive and easy to understand so that even inexperienced uesrs can easily use this tool from the every first time.
+
+* Representative tasks
+** Things a user potentially want to understand from the data
+   + The photography quality of camera
+
+     Does the camera has enough pixels? Is it good for taking scenery photo
+   + The physical quality of camera
+
+     Is the camera too heavy? Does it has enough storage space?
+   + The quality/price ratio
+
+     Under the same price range, which camera has the better quality?
+
+** Questions to guide the design
+   + How many data cases? How many variables?
+
+     It is total different to handle data with difference size and dimension.
+     We have about 1000 cases with 13 variables. So it is small-sized *hypervariate* dataset.
+
+   + How can users find the camera they want quickly?
+     The main purpose of our project is to help users find the suitable camera. So this question is really important to guide our design and it is the most important one that we need to answer.
+
+   + How can users compare cameras easily?
+
+     When choosing cameras, it is unavoidable that users want to compare several camera. So how to make it possible for users to compare them and find their difference become a important question.
+
+* Chosen design
+** Representations chosen
+   + *Table chart* (figure [[fig:table]])
+
+     It is a traditional way to list all the dataset. And we use different color to represent different variable and use a bar instead of number to show the quantitative variable.
+
+     #+caption: table chart
+     #+name: fig:table
+     [[./table.png]]
+
+   + *Parallel coordinate* (figure [[fig:parallel]])
+
+     Parallel coordinate is a good way to represent hypervariate data. Since the size our data is about 1000 cases so it won't be too large to make parallel coordinate hard to view. What's more, parallel coordinate provides us a way to view the whole *context* so that it become easier to understand the whole dataset and we can find the relationship between those variables.
+
+     #+caption: parallel coordinate
+     #+name: fig:parallel
+     [[./parallel.png]]
+
+   + *Radar chart(star plot)* (figure [[fig:radar]])
+
+     We use radar chart to show camera properties in detail and make comparison. Radar chart works good when there are only several data cases. Since it is common that finally there will be 2 or 3 cameras that users are interested in and they hesitate to choose the right one, radar chart just meet the requirement well. Users can use the radar chart to discover the advantage and disadvantage among several cameras easily.
+
+     In our design, Radar chart shows two diagrams. First one shows physical characteristics like weight, price, dimension, and the second one shows photography characteristics. In this way, related properties are located together and gives user a better view of the detail.
+
+     #+caption: radar chart
+     #+name: fig:radar
+     [[./radar.png]]
+
+** Interaction that the design handles
+   + *Select* (figure [[fig:select]])
+
+     Users can select the case they are interested from the table. Multi selection is also supported. The selected cases will be highlighted in the table and parallel coordinate chart.
+
+     #+caption: select multiple cases
+     #+name: fig:select
+     [[./select.png]]
+
+   + *Sort* (figure [[fig:sort]])
+
+     The table can be sorted by a variable so that user can find the camera with the best variable easily.
+
+     #+caption: sort by price
+     #+name: fig:sort
+     [[./sort.png]]
+
+   + *Reconfigure*
+
+     The columns of table and parallel coordinate can be rearranged by dragging. It will be easier for users to put the interesting variable in together and find the relationship
+
+   + *Filter* (figure [[fig:filter]])
+
+     There is a filter panel that users can make filter on the data to find the cases that meets the query easily.
+
+     #+caption: filter
+     #+name: fig:filter
+     [[./filter.png]]
+
+   + *Connect* (figure [[fig:connect]])
+
+     The table, parallel coordinate and radar chart is all connected.
+     The selected cases will be highlighted in parallel coordinate and radar chart will be updated.
+     The highlighted case in parallel coordinate will also update the data table.
+
+     #+caption: connection
+     #+name: fig:connect
+     [[./connect.png]]
+
+   + *Brushing* (figure [[fig:brushing]])
+
+     We can make brushing operation on the parallel coordinate to highlight the cases
+
+     #+caption: brushing
+     #+name: fig:brushing
+     [[./brushing.png]]
+
+** Relationship between design decisions and users, data, and tasks
+   + *Users*: interaction
+
+     Users need good *interaction* so that they can understand the data more easily.
+     Our design combine multiple interaction technique so that users can get what they want easily.
+
+   + *Data*: hypervariate, context & focus
+
+     Parallel coordinate and radar chart are both ways to show hypervariate data.
+
+     It is important to have both context and focus in visualization and have a good combination of them.
+
+     In our design, parallel coordinate gives us a context view and radar chart helps us focus on detail.
+
+   + *Tasks*: finding the right camera step by step
+
+     The purpose of the project is to help users find the most suitable camera that meets their needs. We combine multiple visualization and interaction technique to make it possible.
+
+     The process of choosing the right camera is a step-by-step process. Users first get a bunch of cameras that meets the general requirement. Then they choose one from those selected camera by comparing them in detail.
+
+     So this is what our design does. Use table and parallel coordinate to get the bunch of cameras and use radar chart to find the final one that they want.
+
+** The part that  the design do well
+   + Show a general data context and relationship among variables
+
+     Using the combination of table and parallel coordinate, users can have a good cognition of the general data context and variable relationship.
+
+   + Find the camera that meets specific query requirement easily
+
+     With multiple interaction techniques, such as filter, sort, brushing and so on, users can get the specific camera the meets the query easily.
+
+   + Compare small amount of cameras in detail
+
+     Radar chart does well in the part and user can dig into the detail do some analysis by comparing several cameras with radar chart.
+
+** The part that the design does not do well
+
+   The main problem is about the radar chart.
+
+   First, It seems the radar chart is good for analyst but not that good for users without much analysis skill.
+   Then, Radar chart works good with small amount of cases but it becomes less useful with more cases which are overlapped with each other. Sometimes cameras may have very similar variables. In this case, it become a little bit difficult to compare them with Radar Chart.
